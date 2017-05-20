@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include header.html %}
+</head>
+<body>
+{% include main_menu.html %}
+
+
+<main id="content" role="main" class="uk-margin-large-bottom">
+    <div class="uk-container uk-container-large">
+        <div class="uk-grid">
+            <div class="uk-width-1-4@m">
+                <h2>Documentation</h2>
+
+                <ul class="uk-nav uk-nav-default tm-nav">
+                    <li class="uk-nav-header">Getting started</li>
+                    <li class=""><a href="/docs/install/windows.html">Install on Windows</a></li>
+                    <li class=""><a href="/docs/install/linux.html">Install on Linux</a></li>
+                </ul>
+
+                <h3>Developper Documentation</h3>
+
+                <ul class="uk-nav uk-nav-default tm-nav">
+                    <li class=""><a href="/docs/introduction.html">Introduction</a></li>
+
+                    <li class="uk-nav-header">Service & Components</li>
+                    <li class=""><a href="/docs/services/helper/chat_notification.html">Helper : Chat Notification</a></li>
+                    <li class=""><a href="/docs/services/helper/translations.html">Helper : Translations</a></li>
+                    <li class=""><a href="/docs/services/helper/admingroups.html">Helper : AdminGroups</a></li>
+                    <li class=""><a href="/docs/services/data_providers.html">Component : Data Providers</a></li>
+                    <li class=""><a href="/docs/services/user_groups.html">Component : User Groups</a></li>
+                    <li class=""><a href="/docs/services/ui/windows.html">Component : UI Windows</a></li>
+                    <li class=""><a href="/docs/services/ui/widgets.html">Component : UI Widgets (Not developped yet)</a></li>
+                    <li class=""><a href="/docs/services/ui/grid.html">Component : UI Grid (Not developped yet)</a></li>
+
+                    <li class="uk-nav-header">Cook Books</li>
+                    <li class=""><a href="/docs/cookbooks/create_chat_command.html">Creating a chat command</a></li>
+
+                </ul>
+            </div>
+
+            <div class="uk-width-expand@m doc-content">
+                {{ content }}
+
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
