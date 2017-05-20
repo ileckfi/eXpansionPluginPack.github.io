@@ -1,0 +1,42 @@
+- title: Good code; Using Symfony principles
+  icon: code
+  description: Basically it means the experience you will get in coding for eXpansion can serve you every where else and even on your CV.
+  description_more:
+    Anyone that has developped in Symfony before will have no trouble writing bundles(plugins) for eXpansion.<br/>
+    But it also means that what you are going to learnt to code for eXpansion can be used to code a website based on symfony.
+
+- title: Light & Fast
+  icon: bolt
+  description: Maniascript allows to delagete tasks and take of the load from the sever.
+  description_more:
+    eXpansion2 send a single manialink to update all widgets, maniascript handles player related data.<br/>
+    It will also group manialinks in an intelligent fashion to create as little as possible load to the dedicated server.
+
+- title: International
+  icon: world
+  description:
+    eXpansion supports multilingual messages. So translating eXpansion for a new language isn't hacking.
+    It just part of what it is meant to do. Contact us if you wish to work on the translations
+
+- title: Keep updated, easy
+  icon: download
+  description: Thanks to Composer you can keep updated with the latest stable, nightly or subscribe even to the developer build!
+
+- title: Compatible
+  icon: git-fork
+  description: Trackmania or Shootmania, eXpansion is built to be extend to work on any environment & on any gamemode.
+  description_more:
+    Unique data provider based architecture coupled with Smyfony DI makes adapting existing plugins to new gamemodes easier then ever.<br/>
+    Exemple, If changes are made to make LocalRecords compatible with a new gamemode, the localRecordsWiget will automatically start working.
+
+- title: Easy to Install
+  icon: happy
+  description: eXpansion Add-on is easy to install, even for novice server administrator with our install tutorial!
+
+- title: Well documented
+  icon: lifesaver
+  description: Very complete documentation with various exemples.
+
+- title: Unit tested
+  icon: check
+  description: A united tested core, it means less bugs, less crashes.

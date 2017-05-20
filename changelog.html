@@ -1,0 +1,42 @@
+---
+layout: base
+---
+
+<h1>eXpansion Core Changelogs</h1>
+
+{% for changes in site.data.change_logs %}
+
+    <h2 id="{{ changes.title }}">
+        <a href="#{{ changes.title }}">{{ changes.title }}</a>
+        <span class="uk-text-meta">{{ changes.date }}</span>
+    </h2>
+
+    <dl class="uk-description-list uk-description-list-divider" >
+        {% for change in changes.changes %}
+            <dt class="uk-text-bold">
+                {% if change.type == "created" %}
+                    <span class="uk-label uk-label-success">Added</span>
+                {% endif %}
+                {% if change.type == "change" %}
+                    <span class="uk-label uk-label-default">Changed Behaviour</span>
+                {% endif %}
+                {% if change.type == "fix" %}
+                    <span class="uk-label uk-label-warning">Fixed Bug</span>
+                {% endif %}
+                {% if change.type == "break" %}
+                    <span class="uk-label uk-label-danger">Breaking Change</span>
+                {% endif %}
+
+                    {{ change.name }}
+                </a>
+            </dt>
+            <dd>
+                {{ change.description }}
+            </dd>
+        {% endfor %}
+    </dl>
+
+{% endfor %}
+
+
+Hello eXpansion2 is still in devopment. We will be given more information later.

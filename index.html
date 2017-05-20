@@ -32,173 +32,37 @@ layout: base
 </h2>
 
 <div class="uk-grid-match uk-child-width-expand@s" uk-grid>
-    <div  class="uk-width-1-3@xl uk-width-1-2@l">
-        <div class="uk-card uk-card-default uk-card-body uk-card-hover">
-            <div class="uk-grid">
-                <div class="uk-width-1-6">
-                    <span uk-icon="icon: code; ratio: 2"></span>
-                </div>
-                <div class="uk-width-5-6">
-                    <h3>
-                        Good code; Using Symfony principles
-                    </h3>
-                    <p>
-                        Basically it means the experience you will get in coding for eXpansion can serve you every where else and even on your CV.
-                        <a class="uk-button uk-button-default uk-float-right uk-margin-top" uk-toggle="target: #show-more__symfony_code; cls: uk-hidden">
-                            <span uk-icon="icon: expand"></span>
-                            More
-                        </a>
-                    </p>
-                    <p id="show-more__symfony_code" class="uk-hidden uk-margin-medium-top">
-                        Anyone that has developped in Symfony before will have no trouble writing bundles(plugins) for eXpansion.<br/>
-                        But it also means that what you are going to learnt to code for eXpansion can be used to code a website based on symfony.<br/>
-                    </p>
+
+    {% for feature in site.data.top_features %}
+        <div  class="uk-width-1-3@xl uk-width-1-2@l">
+            <div class="uk-card uk-card-default uk-card-body uk-card-hover">
+                <div class="uk-grid">
+                    <div class="uk-width-1-6">
+                        <span uk-icon="icon: {{ feature.icon }}; ratio: 2"></span>
+                    </div>
+                    <div class="uk-width-5-6">
+                        <h3>
+                            {{ feature.title }}
+                        </h3>
+                        <p>
+                            {{ feature.description }}
+
+                            {% if feature.description_more != nil %}
+                            <a class="uk-button uk-button-default uk-float-right uk-margin-top" uk-toggle="target: #show-more__symfony_code; cls: uk-hidden">
+                                <span uk-icon="icon: expand"></span>
+                                More
+                            </a>
+                            {% endif %}
+                        </p>
+
+                        {% if feature.description_more != nil %}
+                            <p id="show-more__symfony_code" class="uk-hidden uk-margin-medium-top">
+                                {{ feature.description_more }}
+                            </p>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div  class="uk-width-1-3@xl uk-width-1-2@l">
-        <div class="uk-card uk-card-default uk-card-body uk-card-hover">
-            <div class="uk-grid">
-                <div class="uk-width-1-6">
-                    <span uk-icon="icon: bolt; ratio: 2"></span>
-                </div>
-                <div class="uk-width-5-6">
-                    <h3>
-                        Light & Fast
-                    </h3>
-                    <p>
-                        Maniascript allows to delagete tasks and take of the load from the sever.
-                        <a class="uk-button uk-button-default uk-float-right uk-margin-top" uk-toggle="target: #show-more__fast; cls: uk-hidden">
-                            <span uk-icon="icon: expand"></span>
-                            More
-                        </a>
-                    </p>
-                    <p id="show-more__fast" class="uk-hidden uk-margin-medium-top">
-                        eXpansion2 send a single manialink to update all widgets, maniascript handles player related data.<br/>
-                        It will also group manialinks in an intelligent fashion to create as little as possible load to the dedicated server.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div  class="uk-width-1-3@xl uk-width-1-2@l">
-        <div class="uk-card uk-card-default uk-card-body uk-card-hover">
-            <div class="uk-grid">
-                <div class="uk-width-1-6">
-                    <span uk-icon="icon: world; ratio: 2"></span>
-                </div>
-                <div class="uk-width-5-6">
-                    <h3>
-                        International
-                    </h3>
-                    <p>
-                        eXpansion supports multilingual messages. So translating eXpansion for a new language isn't hacking.
-                        It just part of what it is meant to do. Contact us if you wish to work on the translations
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div  class="uk-width-1-3@xl uk-width-1-2@l">
-        <div class="uk-card uk-card-default uk-card-body uk-card-hover">
-            <div class="uk-grid">
-                <div class="uk-width-1-6">
-                    <span uk-icon="icon: download; ratio: 2"></span>
-                </div>
-                <div class="uk-width-5-6">
-                    <h3>
-                        Keep updated, easy
-                    </h3>
-                    <p>
-                        Thanks to Composer you can keep updated with the latest stable, nightly or subscribe even to the developer build!
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div  class="uk-width-1-3@xl uk-width-1-2@l">
-        <div class="uk-card uk-card-default uk-card-body uk-card-hover">
-            <div class="uk-grid">
-                <div class="uk-width-1-6">
-                    <span uk-icon="icon: git-fork; ratio: 2"></span>
-                </div>
-                <div class="uk-width-5-6">
-                    <h3>
-                        Compatible
-                    </h3>
-                    <p>
-                        Trackmania or Shootmania, eXpansion is built to be extend to work on any environment & on any gamemode.
-                        <a class="uk-button uk-button-default uk-float-right uk-margin-top" uk-toggle="target: #show-more__compatible; cls: uk-hidden">
-                            <span uk-icon="icon: expand"></span>
-                            More
-                        </a>
-                    </p>
-
-                    <p id="show-more__compatible" class="uk-hidden uk-margin-medium-top">
-                        Unique data provider based architecture coupled with Smyfony DI makes adapting existing plugins to new gamemodes easier then ever.<br/>
-                        Exemple : If changes are made to make LocalRecords compatible with a new gamemode, the localRecordsWiget will automatically start working.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div  class="uk-width-1-3@xl uk-width-1-2@l">
-        <div class="uk-card uk-card-default uk-card-body uk-card-hover">
-            <div class="uk-grid">
-                <div class="uk-width-1-6">
-                    <span uk-icon="icon: happy; ratio: 2"></span>
-                </div>
-                <div class="uk-width-5-6">
-                    <h3>
-                        Easy to Install
-                    </h3>
-                    <p>
-                        eXpansion Add-on is easy to install, even for novice server administrator with our install tutorial!
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div  class="uk-width-1-3@xl uk-width-1-2@l">
-        <div class="uk-card uk-card-default uk-card-body uk-card-hover">
-            <div class="uk-grid">
-                <div class="uk-width-1-6">
-                    <span uk-icon="icon: lifesaver; ratio: 2"></span>
-                </div>
-                <div class="uk-width-5-6">
-                    <h3>
-                        Well documented
-                    </h3>
-                    <p>
-                        Very complete documentation with various exemples.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div  class="uk-width-1-3@xl uk-width-1-2@l">
-        <div class="uk-card uk-card-default uk-card-body uk-card-hover">
-            <div class="uk-grid">
-                <div class="uk-width-1-6">
-                    <span uk-icon="icon: check; ratio: 2"></span>
-                </div>
-                <div class="uk-width-5-6">
-                    <h3>
-                        Unit tested
-                    </h3>
-                    <p>
-                        A united tested core, it means less bugs, less crashes.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% endfor %}
 </div>
