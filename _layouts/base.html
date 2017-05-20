@@ -7,8 +7,12 @@
     {% include main_menu.html %}
 
 
-    <main id="content" role="main" class="uk-margin-large-bottom">
-        {{ content }}
+    <main id="content" role="main" class="uk-margin-large-bottom uk-margin-large-top">
+        <div class="uk-container uk-container-large">
+            {{ content }}
+        </div>
     </main>
+
+    {% include footer.html %}
 </body>
 </html>
