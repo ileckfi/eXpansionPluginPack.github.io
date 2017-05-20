@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include header.html %}
+</head>
+<body>
+    {% include main_menu.html %}
+
+
+    <main id="content" role="main" class="uk-margin-large-bottom uk-margin-large-top">
+        <div class="uk-container uk-container-large">
+            <div class="uk-grid-match uk-child-width-expand@s" uk-grid>
+                <div class="uk-width-3-4@l uk-width-2-3@m">
+                    {{ content }}
+                </div>
+
+                {% include home_menu.html %}
+            </div>
+        </div>
+    </main>
+
+    {% include footer.html %}
+</body>
+</html>

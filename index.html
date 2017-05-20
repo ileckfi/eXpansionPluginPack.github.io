@@ -1,76 +1,70 @@
 ---
-layout: base
+layout: home
 ---
 
 <h1>Welcome to eXpansion</h1>
 
-<div class="uk-grid uk-grid-match" uk-grid>
+<p>eXpansion is a Dedicated Server Controller for ManiaPlanet games by Ubisoft/NADEO, adding very cool features to the online gaming experience! </p>
 
-    <div class="uk-width-3-4@l uk-width-2-3@m">
-        <p>eXpansion is a Dedicated Server Controller for ManiaPlanet games by Ubisoft/NADEO, adding very cool features to the online gaming experience! </p>
+<p>
+    eXpansion V1 support was dropped during MP#4 Beta; it required a total overhaul before it could become compatible with the latests version of the game.
+    eXpansion V1 contained quite a long list of technical dept coming from usage of unmaintained libraries as well as design errors.
+</p>
 
-        <p>
-            eXpansion V1 support was dropped during MP#4 Beta; it required a total overhaul before it could become compatible with the latests version of the game.
-            eXpansion V1 contained quite a long list of technical dept coming from usage of unmaintained libraries as well as design errors.
-        </p>
+<p>
+    At that point we decided that it was impossible for 2 people to work it to the new standarts while keeping all the functionalities.
+    And therefore started the development of eXpansion V2.
+</p>
 
-        <p>
-            At that point we decided that it was impossible for 2 people to work it to the new standarts while keeping all the functionalities.
-            And therefore started the development of eXpansion V2.
-        </p>
+<p>
+    <strong>eXpansion V2 is still in developmment and we don't expect a release even alpha anytime soon.</strong>
+    We wish tto put in place solid bases before starting to create add functionnalities to the system.
+    We don't expect the second version to ever have as much feature as the first version, we are going to rely on the community for that.
+</p>
 
-        <p>
-            <strong>eXpansion V2 is still in developmment and we don't expect a release even alpha anytime soon.</strong>
-            We wish tto put in place solid bases before starting to create add functionnalities to the system.
-            We don't expect the second version to ever have as much feature as the first version, we are going to rely on the community for that.
-        </p>
+<p>
+    eXpansion 2 is <a href="http://symfony.com">Symfony</a> based. This allows eXpansion 2  to be very modular.<br/>
+    The Manialink engine uses steeffeen's <a href="https://github.com/steeffeen/FancyManiaLinks">Fancy Manialink's</a> library with some custom parts to inject maniascript.
+</p>
 
-        <p>
-            eXpansion 2 is <a href="http://symfony.com">Symfony</a> based. This allows eXpansion 2  to be very modular.<br/>
-            The Manialink engine uses steeffeen's <a href="https://github.com/steeffeen/FancyManiaLinks">Fancy Manialink's</a> library with some custom parts to inject maniascript.
-        </p>
+<h2>
+    Top features to expect :
+</h2>
 
-        <h2>
-            Top features to expect :
-        </h2>
+<div class="uk-grid-match uk-child-width-expand@s" uk-grid>
 
-        <div class="uk-grid-match uk-child-width-expand@s" uk-grid>
+    {% for feature in site.data.top_features %}
+    <div  class="uk-width-1-2@xl uk-width-1-2@m">
+        <div class="uk-card uk-card-default uk-card-body uk-card-hover">
+            <div class="uk-grid">
+                <div class="uk-width-1-6">
+                    <span uk-icon="icon: {{ feature.icon }}; ratio: 2"></span>
+                </div>
+                <div class="uk-width-5-6">
+                    <h3>
+                        {{ feature.title }}
+                    </h3>
+                    <p>
+                        {{ feature.description }}
 
-            {% for feature in site.data.top_features %}
-            <div  class="uk-width-1-2@xl uk-width-1-2@m">
-                <div class="uk-card uk-card-default uk-card-body uk-card-hover">
-                    <div class="uk-grid">
-                        <div class="uk-width-1-6">
-                            <span uk-icon="icon: {{ feature.icon }}; ratio: 2"></span>
-                        </div>
-                        <div class="uk-width-5-6">
-                            <h3>
-                                {{ feature.title }}
-                            </h3>
-                            <p>
-                                {{ feature.description }}
+                        {% if feature.description_more != nil %}
+                        <a class="uk-button uk-button-default uk-float-right uk-margin-top" uk-toggle="target: #show-more__symfony_code; cls: uk-hidden">
+                            <span uk-icon="icon: expand"></span>
+                            More
+                        </a>
+                        {% endif %}
+                    </p>
 
-                                {% if feature.description_more != nil %}
-                                <a class="uk-button uk-button-default uk-float-right uk-margin-top" uk-toggle="target: #show-more__symfony_code; cls: uk-hidden">
-                                    <span uk-icon="icon: expand"></span>
-                                    More
-                                </a>
-                                {% endif %}
-                            </p>
-
-                            {% if feature.description_more != nil %}
-                            <p id="show-more__symfony_code" class="uk-hidden uk-margin-medium-top">
-                                {{ feature.description_more }}
-                            </p>
-                            {% endif %}
-                        </div>
-                    </div>
+                    {% if feature.description_more != nil %}
+                    <p id="show-more__symfony_code" class="uk-hidden uk-margin-medium-top">
+                        {{ feature.description_more }}
+                    </p>
+                    {% endif %}
                 </div>
             </div>
-            {% endfor %}
         </div>
     </div>
-
-    {% include home_menu.html %}
+    {% endfor %}
 </div>
+
 
