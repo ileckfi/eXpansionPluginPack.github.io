@@ -11,7 +11,16 @@ layout: base
         <span class="uk-text-meta">{{ changes.date }}</span>
     </h2>
 
-    <dl class="uk-description-list uk-description-list-divider" >
+    <p>
+        {{ changes.description }}
+
+        <a class="uk-button uk-button-default uk-float-right uk-margin-top" uk-toggle="target: #changes__{{ forloop.index0 }}; cls: uk-hidden">
+            <span uk-icon="icon: expand"></span>
+            See Changelog
+        </a>
+    </p>
+
+    <dl class="uk-description-list uk-description-list-divider uk-hidden" id="changes__{{ forloop.index0 }}" >
         {% for change in changes.changes %}
             <dt class="uk-text-bold">
                 {% if change.type == "created" %}

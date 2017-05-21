@@ -1,9 +1,333 @@
-- title: V2.0.0.0-alpha-1
-  description: Alpha version of Expansion2 Not releases YET
-  date: TO come in the future
+- title: V1.1.0.0
+  description:
+    Version patched for MP#4. Last version of eXpansion V1. This version works but has numerous bugs, even some that might crash the game.<br/>
+    Wait for eXpansion2 :)
+  date: 13/05/2017
+
+- title: V1.0.1.2
+  description: Small Fixes
+  date: 23/10/2016
+
+- title: V1.0.1.1
+  description:
+  date: 23/9/2016
   changes:
-    - name: eXpansion 2 is created
+    - name: Fixed big memory leak in menu. Should make eXpansion more stable
+      type: created 
+    - name: Added automatic memory freeing for widgets. Again should help with memory usage
+      type: created 
+    - name: Hud reset restores chat to visible (you can hide chat with f12)
+      type: created 
+    - name: Added ability to save widget positions to backend. The backend is not ready to save the information but frontend part is done.
+      type: created 
+    - name: 'Fix #239 save mx maps with filename instead of numeric mx-id'
+      type: fix
+    - name: ANSI colors, it's fully disabled on windows console, colors are used on linux.
+      type: created 
+    - name: 'Cleaning #231 - Added all missing scopes on functions.'
+      type: created 
+    - name: 'Fixed #226 some rare error when player disconnects just as info change in widget times.'
+      type: fix
+    - name: "Fixed #220 issue when starting plugins depending on other from interface, it wouldn't start the plugin on first click."
+      type: fix
+    - name: "Feature #221 - Added plugin incompatibility option in metadata to prevent a plugin from running when there is another one already running."
+      type: created 
+    - name: Quite a lot of coding style fixes
+      type: fix
+    - name: Adding combined records widget
+      type: created 
+    - name: Fix players background highlite for widgets
+      type: fix
+    - name: "Server Options: add multiline editbox for server comment."
+      type: created 
+    - name: Adding more options to votemanager. players addqueue from mx vote, limits and easier dropdown menu for options
+      type: created 
+    - name: Fixed pluginslist dropdown box
+      type: fix
+    - name: Fixed endrankings to have more space between elements
+      type: fix
+    - name: Fixed random 'black screen' when joining server.
+      type: fix
+    - name: Advertising widget works again with multiple ads
+      type: fix
+    - name: "Fixed issue #225 with getCurrentRankings trying to fetch to much data at once"
+      type: fix
+    - name: Added mysql version to the analytics.
+      type: created 
+    - name: Attemt to fix issue with some mysql versions
+      type: fix
+    - name: Unified console messages more + $this->console() takes now trackmania colorcodes, console output is converted to ansi colors and log files without colors
+      type: created 
+    - name: "#72 Removed usage of echo in many places, replaced with proper logging procedure."
+      type: created 
+    - name: "#72 Normalized logging & printing to console"
+      type: created 
+    - name: Added comments to the admin groups plugin.
+      type: created 
+    - name: "Fixed issue #218 while checking for gd library."
+      type: fix
+    - name: "#211 Added guest group feature."
+      type: created 
+    - name: new plugin to force delay of match start
+      type: created 
+    - name: Added ability to have different colors for join and leave messages
+      type: created 
+    - name: Adding possiblity to disable jukeboxin of music
+      type: created 
+    - name: "Fix for button to work better with optimized pager"
+      type: fix
+    - name: "fix #209: Musiclist window is too big, eabling possibility to add more than 180 songs..."
+      type: fix
+    - name: players can now toggle their chat on/off by pressing f12
+      type: fix
+    - name: fix /top100 after optimizing rank calculation
+      type: fix
+    - name: livecp - additional sorting by time if cps are same
+      type: created 
+    - name: Otimized databases and queries for really big databases... rank calclation is reduced from 27 seconds down to 1.5 second!
+      type: created 
+    - name: optimized widgets drawing
+      type: created 
+    - name: "minor fixes, new plugin: livecp (for rpg servers)"
+      type: fix
+    - name: increase ads widget count to 10
+      type: created 
+    - name: fix for idlekick / special case when login might be null or empty string
+      type: fix
+    - name: refacor Gui class, adding phpdoc for better documentation
+      type: created 
+    - name: "fix #214: /adm delrec [login], added confirm dialog have text"
+      type: fix
+    - name: "musicbox fixes: issue #215, and warmup issue with rounds, also fixed issue with nextmap announce on warmup restart"
+      type: fix
+    - name: limitting votes per map
+      type: created 
+    - name: 'summer widget: Ants'
+      type: created 
+    - name: funny times plugin
+      type: created 
+    - name: new widget to display local time
+      type: created 
+    - name: fix badwords directory for custom chat profanity filter + fix basic plugin chat redirection
+      type: created 
+    - name: More deprecated functions in eXpansion widgets & added some methos scopes
+      type: created 
+    - name: Cleaned up Adm module & some dependencies
+      type: created 
+    - name: Cleaned up & deprecated snake case methods
+      type: created 
+
+- title: V1.0.0.5
+  description:
+  date: 3/04/2016
+  changes:
+    - name: More fixes
+      type: fix
+      description:
+
+- title: V1.0.0.4
+  description:
+  date: 3/04/2016
+  changes:
+    - name: Fixed french tranlations & other
+      type: fix
+      description:
+
+- title: V1.0.0.2
+  description:
+  date: 6/03/2016
+  changes:
+    - name: Fixed autoupdate not working
+      type: fix
+      description:
+
+- title: V1.0.0.1
+  description: Updated german translations
+  date: 25/11/2015
+  changes:
+    - name: Updated german translations
       type: created
       description:
-        When will it come?
-        Patience, it will be ready when it is ready.
+
+- title: V1.0.0.0
+  description: First Release
+  date: 22/11/2015
+  changes:
+    - name: 
+      type: created
+      description:
+    - name: Composer install update
+      type: created
+    - name: Multiple fixes for third part plugins / composer will also make it easier to install
+      type: fix
+    - name: You'll need to have minimum of PHP 5.4
+      type: change
+    - name: Support has been added for the new PHP 7.0, and it's super fast :)
+      type: created
+    - name: We've added true support for async https usign curl
+      type: created
+    - name: a nasty bug with number only logins !!
+      type: created
+    - name: config\exp_admin_ip.ini will have proper examples, when generated first time from scratch :)
+      type: created
+    - name: 'fixes #157, added new admingroup getter: getAdminsByPermission($permissionName)'
+      type: created
+    - name: more statistics at podium, added top donators and top playtime
+      type: created
+    - name: added few more menu items
+      type: created
+    - name: 'fixes issues: localrecords widget not visible on rounds. BestCheckpoints did reset every round.'
+      type: fix
+    - name: voters info for maplist
+      type: created
+    - name: faster animations
+      type: created
+    - name: fixes nicknames to have colors at livepanel when joining server when race is on
+      type: fix
+    - name: Fixes fatal error when dedicated server config file is not found on settings change.
+      type: fix
+    - name: map ratings widget + storm = maniascript error #184 -> fixed.
+      type: fix
+    - name: Improved Blacklist & guestlist handling
+      type: created
+    - name: Added more widgets for end race
+      type: created
+    - name: Widgets have types now, sidebar widgets which are easy to hide & old style.
+      type: created
+    - name: Added check on directory permissions on startup
+      type: created
+    - name: Added previous map command
+      type: created
+    - name: Added button to help reporting on Dedimania records
+      type: created
+
+- title: V0.9.8.7-RC
+  description: Release Candidate.
+  date: 7/11/2015
+  changes:
+    - name: Anonymous analytics to keep track of the servers & errors.
+      type: created
+      description:
+    - name: New LocalRecords system allowing easy coding of new implementations for new game modes.
+      type: created
+      description:
+    - name: Support for Platform & Obstacles SM Title
+      type: created
+      description:
+    - name: Plugin search
+      type: created
+      description:
+    - name: Settings can be in plugins specific windows
+      type: created
+      description:
+    - name: Custom UI plugin improved
+      type: created
+      description:
+    - name: added commands to enable/disable chat
+      type: created
+      description:
+    - name: Added feature to delete records
+      type: created
+      description:
+    - name: Added Bet plugin
+      type: created
+      description:
+    - name: Quiz improvements
+      type: created
+      description:
+    - name: Added Knockout plugin
+      type: created
+      description:
+    - name: You can now inspect CP times of dedimania & Local records
+      type: created
+      description:
+    - name: Fixed issue with display of ranks
+      type: fix
+      description:
+    - name: Menu improved, when clicking tab menu is disabled
+      type: created
+      description:
+    - name: New Chat widget
+      type: created
+      description:
+    - name: Improvements to the GUI
+      type: created
+      description:
+    - name: add keepPlayerSlots checkbox for server options
+      type: created
+      description:
+    - name: Better support for remote installation
+      type: created
+      description:
+    - name: added inputbox for loading matchsettings file from server
+      type: created
+      description:
+    - name: fixes for map handling when running remote (disable unlink forexample)
+      type: fix
+      description:
+    - name: local map browser; shouldn't be able to open it anymore, but in case, added check for running remote + infomessage
+      type: created
+      description:
+    - name: local map browser window -> disable erase maps if you are running remote
+      type: created
+      description:
+    - name: close window current active and opened window by escape-key
+      type: created
+      description:
+    - name: adding new keyboard shortcut for windows -> pressing tab will focus on buttons and inputboxes
+      type: created
+      description:
+    - name: added keyboard shortcuts for pager and optimized pager; pg up & pg down
+      type: created
+      description:
+    - name: fixed pager; when you scrolled the pager didn't go all away up
+      type: fix
+      description:
+    - name: Ad widgets supports upto 5 widget now
+      type: created
+      description:
+    - name: Added topbar. Other devs can customize the content in it using the eXpansion hooks
+      type: created
+      description:
+    - name: Added color picker, to chose color in settings
+      type: created
+      description:
+    - name: Passing your mouse on buttom left corner of screen hides widgets
+      type: created
+      description:
+    - name: Added posibility to change default chat box size
+      type: created
+      description:
+    - name: topsums command
+      type: created
+      description:
+    - name: fix for rounds custom setpoints
+      type: fix
+      description:
+    - name: Around Me widget, works for spectators as well
+      type: created
+      description:
+    - name: Live rankings can also center on specteted player
+      type: created
+      description:
+    - name: Added confirmation messages
+      type: created
+      description:
+    - name: Dedimania support for custom titles
+      type: created
+      description:
+    - name: Redesign of the hud using native MP elements (increases performance as well)
+      type: created
+      description:
+    - name: Auto hide functionality on widgets. (Helps with low FPS, displays widget when not driving only)
+      type: created
+      description:
+    - name: Possibility to swith back to default settings with a simple click
+      type: created
+      description:
+    - name: Added guest windows and commands that were missing for some reasons
+      type: created
+      description:
+    - name: Fixed critical issue with missing display elements on map switch ...
+      type: fix
+      description:
