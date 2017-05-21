@@ -8,6 +8,8 @@ The chat notification helper allows to send chat message to players ingame. It c
 
 The chat provider will also allow to add chat decorations to add color to the chat.
 
+* **Service Name** : `expansion.framework.core.helpers.chat_notification`
+
 | Method                | Description |
 | --------------------- | ----------- |
 | **sendMessage**         | Send message to a user or more |
