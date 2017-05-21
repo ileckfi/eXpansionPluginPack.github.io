@@ -48,7 +48,7 @@ layout: home
                         {{ feature.description }}
 
                         {% if feature.description_more != nil %}
-                        <a class="uk-button uk-button-default uk-float-right uk-margin-top" uk-toggle="target: #show-more__symfony_code; cls: uk-hidden">
+                        <a class="uk-button uk-button-default uk-float-right uk-margin-top" uk-toggle="target: #show-more__{{ forloop.index0 }}; cls: uk-hidden">
                             <span uk-icon="icon: expand"></span>
                             More
                         </a>
@@ -56,7 +56,7 @@ layout: home
                     </p>
 
                     {% if feature.description_more != nil %}
-                    <p id="show-more__symfony_code" class="uk-hidden uk-margin-medium-top">
+                    <p id="show-more__{{ forloop.index0 }}" class="uk-hidden uk-margin-medium-top">
                         {{ feature.description_more }}
                     </p>
                     {% endif %}
