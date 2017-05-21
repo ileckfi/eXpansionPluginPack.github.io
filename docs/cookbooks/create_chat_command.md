@@ -39,6 +39,7 @@ In this file we would like create a new service to handle the /acme chat command
 So we are missing the `YouName\Bundle\Acme\ChatCommand\Acme` class. This class needs to extend `eXpansion\Framework\Core\Model\ChatCommand\AbstractChatCommand` and contain only a single execute function. 
 
 ```php
+<?php
 public function execute($login, InputInterface $input) 
 {
     // Do stuff here
@@ -83,26 +84,27 @@ At this point let's try and understand the parameters :
 We need to modify our `ChatCommand\Acme` to handle the third argument in the constructor. So let's add the fallowing code in the proper places of our Acme file : 
 
 ```php
+<?php
 use eXpansion\Framework\Core\Helpers\ChatNotification;
 
 /** @var ChatNotification */
-protected $chatNotification
+protected $chatNotification;
 
-    public funtion __construct(
-        $command,
-        $aliases,
-        ChatNotification $chatNotification,
-    ) {
-        parent::__construct($command, $aliases);
-        $this->chatNotification = $chatNotification;
-    }
-
+public funtion __construct(
+    $command,
+    $aliases,
+    ChatNotification $chatNotification,
+) {
+    parent::__construct($command, $aliases);
+    $this->chatNotification = $chatNotification;
+}
 ```
 
 We can now use the chat notification in the execute method. 
 
 
 ```php
+<?php 
 public function execute($login, InputInterface $input) 
 {
     $this->chatNotification->sendMessage('Hello, this is acme bundle speaking', null);
@@ -116,6 +118,7 @@ public function execute($login, InputInterface $input)
 Adding description & helpmessage to your commands is extremely simple, simply overide the the getDescription & getHelp methods in our command class.
 
 ```php
+<?php
     public function getDescription()
     {
         return 'Supe acme command description...;
@@ -124,7 +127,6 @@ Adding description & helpmessage to your commands is extremely simple, simply ov
     {
         return 'Super acle command help message...';
     }
-
 ```
 
 Now you can ofcourse add translations for these message using translation keys.
@@ -137,6 +139,7 @@ Finally we will try and get a parameter in input. Our command system uses the sy
 In order to do this let's create a new configure method overiding the parent method.
 
 ```php
+<?php
     protected function configure()
     {
         parent::configure();
@@ -149,6 +152,7 @@ In order to do this let's create a new configure method overiding the parent met
 We will require the login of the user we wish to send the message to. 
 
 ```php
+<?php
 $this->inputDefinition->addArgument(
             new InputArgument('login', InputArgument::REQUIRED, 'Login of the user to send the message to.')
         );
@@ -159,6 +163,7 @@ $this->inputDefinition->addArgument(
 Now in the execute method we can get this login on the input. 
 
 ```php
+<?php
 $login = $input->getArgument('login');
 ```
 

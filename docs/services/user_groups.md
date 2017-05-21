@@ -36,6 +36,7 @@ This way we have created an acme persistent group.
 We will need to create a plugin that uses this service in order to add & remove players. 
 
 ```php 
+<?php
     public function onPlayerConnect(Player $player)
     {
         if (/* My condition */) {
@@ -69,12 +70,14 @@ To create such a group you will need to use the user group factory service (`exp
 You can now create a group for a single player : 
 
 ```php
+<?php
 $groupFactory->createForPlayer('acme');
 ```
 
 Or for a list of players,
 
 ```php
+<?php
 $groupFactory->createForPlayers(['acme', 'oliverde8', ...]);
 ```
 
