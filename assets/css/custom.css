@@ -3,3 +3,8 @@ a.exp-active::before {
     content: '>';
     margin-right: 4px;
 }
+
+.uk-nav-default .uk-nav-sub a.exp-active,
+.uk-nav-default>li>a.exp-active {
+    color: #000;
+}
