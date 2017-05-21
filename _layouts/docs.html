@@ -7,7 +7,7 @@
 {% include main_menu.html %}
 
 
-<main id="content" role="main" class="uk-margin-large-bottom">
+<main id="content" role="main" class="uk-margin-large-bottom uk-margin-medium-top">
     <div class="uk-container uk-container-large">
         <div class="uk-grid">
             <div class="uk-width-1-4@m">
@@ -56,8 +56,33 @@
                 </ul>
             </div>
 
-            <div class="uk-width-expand@m doc-content">
+            <div class="uk-width-expand@m doc-content" id="documentation">
                 {{ content }}
+            </div>
+
+            <div class="uk-width-1-6@xl uk-width-1-4@l uk-visible@l">
+                <div  uk-sticky="offset: 100; width-element: #doc_nav_container">
+                    <div id="doc_nav">
+
+                    </div>
+
+                    <hr/>
+
+                    <ul class="uk-nav uk-nav-default">
+                        <li>
+                            <a href='https://github.com/eXpansionPluginPack/eXpansionPluginPack.github.io/tree/master/{{ page.path }}' target="_blank">
+                                <span uk-icon="icon: pencil" class="uk-margin-small-right uk-icon"></span>
+                                Edit this page
+                            </a>
+                        </li>
+                        <li>
+                            <a href='https://github.com/eXpansionPluginPack/eXpansionPluginPack.github.io/issues/new?title=Page : {{ page.path }}' target="_blank">
+                                <span uk-icon="icon: warning" class="uk-margin-small-right uk-icon"></span>
+                                Report issue
+                            </a>
+                        </li>
+                    </ul>
+                </div>
 
             </div>
         </div>
