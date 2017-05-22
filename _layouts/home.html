@@ -4,17 +4,16 @@
     {% include header.html %}
 </head>
 <body>
-    {% include main_menu.html %}
-
-
-    <main id="content" role="main" class="uk-margin-large-bottom uk-margin-large-top">
+	<div id="header">
+		{% include main_menu.html %}
+	</div>
+    <main id="content" role="main" class="uk-padding-large-bottom ">
         <div class="uk-container uk-container-large">
-            <div class="uk-grid-match uk-child-width-expand@s" uk-grid>
-                <div class="uk-width-3-4@l uk-width-2-3@m">
+            <div class="uk-child-width-expand@s" uk-grid>
+				{% include home_menu.html %}
+                <div class="uk-width-4-5@xl uk-padding uk-background-default uk-width-3-4@l uk-width-2-3@m">
                     {{ content }}
-                </div>
-
-                {% include home_menu.html %}
+                </div>              
             </div>
         </div>
     </main>

@@ -1,42 +1,40 @@
-- title: Good code; Using Symfony principles
+- title:  Great Code - with Symfony principles
   icon: code
-  description: Basically it means the experience you will get in coding for eXpansion can serve you every where else and even on your CV.
+  description: The experience you get coding for eXpansion, can serve you every where else and even on your CV.
   description_more:
-    Anyone that has developped in Symfony before will have no trouble writing bundles(plugins) for eXpansion.<br/>
-    But it also means that what you are going to learnt to code for eXpansion can be used to code a website based on symfony.
+    If you have used Symfony before, you'll have no troubles writing additions for eXpansion.
+    And what you learn by writing eXpansion additions, you can apply for Symphony websites!
 
 - title: Light & Fast
   icon: bolt
-  description: Maniascript allows to delagete tasks and take of the load from the sever.
+  description: Use of ManiaScript allows to delegate tasks and take the load off from the server.
   description_more:
-    eXpansion2 send a single manialink to update all widgets, maniascript handles player related data.<br/>
-    It will also group manialinks in an intelligent fashion to create as little as possible load to the dedicated server.
+    eXpansion2 sends a single manialink to update all widgets data; maniascript handles player related data.
+    Manialinks are send grouped to create as little load as possible for the dedicated server.
 
 - title: International
   icon: world
-  description:
-    eXpansion supports multilingual messages. So translating eXpansion for a new language isn't hacking.
-    It just part of what it is meant to do. Contact us if you wish to work on the translations
+  description: eXpansion has multilingual support. Translating eXpansion for a new language is an easy task to do. Contact us, if you wish to translate for your language!
 
-- title: Keep updated, easy
+- title: Keep up to date
   icon: download
-  description: Thanks to Composer you can keep updated with the latest stable, nightly or subscribe even to the developer build!
+  description: Thanks to Composer you can keep very easily updated with the latest stable, nightly or subscribe even for the development build!
 
 - title: Compatible
   icon: git-fork
-  description: Trackmania or Shootmania, eXpansion is built to be extend to work on any environment & on any gamemode.
+  description: Trackmania or Shootmania - eXpansion is built to work on any environment & gamemode.  
   description_more:
-    Unique data provider based architecture coupled with Smyfony DI makes adapting existing plugins to new gamemodes easier then ever.<br/>
-    Exemple, If changes are made to make LocalRecords compatible with a new gamemode, the localRecordsWiget will automatically start working.
+    With the unique data provider-based architecture coupled with Symphony DI makes adapting existing plugins to new gamemodes easier than before!
+    It is possible to re-use (for example) widgets by just writing a new data provider supporting new game mode.
 
 - title: Easy to Install
   icon: happy
-  description: eXpansion Add-on is easy to install, even for novice server administrator with our install tutorial!
+  description: eXpansion is easy to install, even for novice server administrator - just follow our install tutorial!
 
-- title: Well documented
+- title: Well Documented
   icon: lifesaver
-  description: Very complete documentation with various exemples.
+  description: Very complete documentation with various examples.
 
-- title: Unit tested
+- title: Unit Tested
   icon: check
-  description: A united tested core, it means less bugs, less crashes.
+  description: Rock solid core with less bugs, crashes and frustration.

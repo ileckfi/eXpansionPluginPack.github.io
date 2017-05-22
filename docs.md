@@ -4,7 +4,8 @@ layout: docs
 
 # Documentation
 
-Welcome to the eXpansion2 user & developper documentation. 
+* Welcome to the eXpansion developper documentation
+
 
 ## Requirements
 

@@ -4,7 +4,6 @@ layout: docs
 
 ## Introduction
 
-
 **Welcome to the eXpansion developper documentation.**
 
 Suprising as it might like our non finished version of eXpansion2 has more documentation & cookbooks then eXpansion1. 
@@ -12,7 +11,7 @@ Suprising as it might like our non finished version of eXpansion2 has more docum
 We are going to try and keep the documentation clean & uptodate for you guys to create awsome plugins, 
 sorry I mean Awsome Bundles. Yep behind the hood there is [Symfony!](https://symfony.com/) now, symfony 3.2. 
 
-I recomend any developper that wishes to start making a plugin to atleast look into some parts of the Symfony documentation : 
+I recomend any developper that wishes to start making a plugin to atleast look into some parts of the Symfony documentation: 
 * [Dependency Injection](http://symfony.com/doc/current/components/dependency_injection.html)
 * [Translations](http://symfony.com/doc/current/components/translation.html)
 * [Console](http://symfony.com/doc/current/components/console.html)
@@ -21,5 +20,5 @@ The documentation is seprated in 3 parts, first in the Introduction we will see 
 
 If you were not convinced in the power of DI until now, it's time to be. 
 
-eXpansion is based on the [Symfony!](https://symfony.com/) framwork. 
+eXpansion is based on the [Symfony!](https://symfony.com/) framework. 
 And uses steeffeen's [Fancy Manialink's](https://github.com/steeffeen/FancyManiaLinks) to handle it's manialinks. 

@@ -17,7 +17,7 @@ title: eXpansion - Maniaplanet Server Controller
 email: your-email@domain.com
 description: > # this means to ignore newlines until "baseurl:"
   eXpansion2 is a server controller for Maniaplanet using symfony3 as it's base.
-  I can be used for Shootmania or Trackmania.
+  Supports Shootmania and Trackmania.
 
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com

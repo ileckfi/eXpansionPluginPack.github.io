@@ -7,14 +7,13 @@
 {% include main_menu.html %}
 
 
-<main id="content" role="main" class="uk-margin-large-bottom uk-margin-medium-top">
+<main id="content" role="main" class="uk-margin-no-top">
     <div class="uk-container uk-container-large">
         <div class="uk-grid">
-            <div class="uk-width-1-4@m">
-                <h2>Documentation</h2>
+            <div class="uk-width-1-5@m uk-background-primary uk-padding uk-light">
+                <h4>Getting started</h4>
 
-                <ul class="uk-nav uk-nav-default tm-nav">
-                    <li class="uk-nav-header">Getting started</li>
+                <ul class="uk-nav uk-nav-default tm-nav" >                  
                     <li>
                         Install
                         <ul class="uk-nav-sub">
@@ -31,38 +30,44 @@
                     </li>
                 </ul>
 
-                <h3>Developper Documentation</h3>
+                <h4>Developer Documentation</h4>
 
                 <ul class="uk-nav uk-nav-default tm-nav">
                     <li class=""><a href="/docs/introduction.html">Introduction</a></li>
 
-                    <li class="uk-nav-header">Service & Components</li>
-                    <li class=""><a href="/docs/services/helper/chat_notification.html">Helper : Chat Notification</a></li>
-                    <li class=""><a href="/docs/services/helper/translations.html">Helper : Translations</a></li>
-
-                    <li class=""><a href="/docs/services/data_providers.html">Component : Data Providers</a></li>
-                    <li class=""><a href="/docs/services/plugins.html">Component : Plugins</a></li>
-                    <li class=""><a href="/docs/services/user_groups.html">Component : User Groups</a></li>
-                    <li class=""><a href="/docs/services/admingroups.html">Component : AdminGroups</a></li>
-                    <li class=""><a href="/docs/services/ui/windows.html">Component : UI Windows</a></li>
-                    <li class=""><a href="/docs/services/ui/widgets.html">Component : UI Widgets (Not developped yet)</a></li>
-                    <li class=""><a href="/docs/services/ui/grid.html">Component : UI Grid (Not developped yet)</a></li>
-
-                    <li class=""><a href="/docs/services/storage/player.html">Storage : Player</a></li>
-                    <li class=""><a href="/docs/services/storage/player.html">Storage : Map</a></li>
-
+                    <li class="uk-nav-header">Helpers</li>
+						<ul class="uk-nav-sub">
+							<li class=""><a href="/docs/services/helper/chat_notification.html">Chat Notification</a></li>
+							<li class=""><a href="/docs/services/helper/translations.html">Translations</a></li>
+						</ul>
+					<li class="uk-nav-header">Components</li>
+						<ul class="uk-nav-sub">
+							<li class=""><a href="/docs/services/data_providers.html">Data Providers</a></li>
+							<li class=""><a href="/docs/services/plugins.html">Plugins</a></li>
+							<li class=""><a href="/docs/services/user_groups.html">User Groups</a></li>
+							<li class=""><a href="/docs/services/admingroups.html">Admin Groups</a></li>
+							<li class=""><a href="/docs/services/ui/windows.html">UI Windows</a></li>
+							<li class=""><a href="/docs/services/ui/widgets.html">UI Widgets (Not developped yet)</a></li>
+							<li class=""><a href="/docs/services/ui/grid.html">UI Grid (Not developped yet)</a></li>
+						</ul>		
+					<li class="uk-nav-header">Storages</li>
+						<ul class="uk-nav-sub">
+							<li class=""><a href="/docs/services/storage/player.html">Players</a></li>
+							<li class=""><a href="/docs/services/storage/player.html">Maps</a></li>
+						</ul>
                     <li class="uk-nav-header">Cook Books</li>
-                    <li class=""><a href="/docs/cookbooks/create_chat_command.html">Creating a chat command</a></li>
-
+					<ul class="uk-nav-sub">
+						<li class=""><a href="/docs/cookbooks/create_chat_command.html">Creating a chat command</a></li>
+					</ul>
                 </ul>
             </div>
 
-            <div class="uk-width-expand@m doc-content" id="documentation">
+            <div class="uk-width-expand@m uk-background-default uk-padding doc-content" id="documentation">
                 {{ content }}
             </div>
 
-            <div class="uk-width-1-6@xl uk-width-1-4@l uk-visible@l">
-                <div  uk-sticky="offset: 100; width-element: #doc_nav_container">
+            <div class="uk-width-1-6@xl uk-width-1-5@l uk-visible@l">
+                <div  uk-sticky="offset: 100; width-element: #doc_nav_container; bottom: true">
                     <div id="doc_nav">
 
                     </div>
