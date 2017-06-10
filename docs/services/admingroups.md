@@ -7,20 +7,19 @@ layout: docs
 The Admin Groups component of eXpansion allows having various admin groups with players in them. 
 Each group having different permissions. 
 
-There are multiple services forming this component, but as we will see layer a helper service simplifies the usage of the component. 
-Making it easy to use.
+There are multiple services forming this component, but as we will see a helper service simplifies 
+the usage of the component. Making it easy to use on any of you bundles..
 
 The Admin groups functionality of expansion will place each player in a certain group, 
 player that has no privileges will be put in the guest group. 
 
-In eXpansion V1 a player could bee in multiple groups, this is no longer possible. 
-A player can only be in one Admin group.
+In eXpansion V1 a player could bee in multiple groups, this is no longer possible in eXpansion2. 
+A player can only be in one Admin group at a time.
 
 ### Admin Groups Helper
 
 This **service** will allow to check if a player has certain permissions, to which admin group a player belongs, 
 and get player groups in order to display widgets for each admin group.
-
 
 * **Service Name** : `expansion.framework.admin_groups.helpers.groups`
 
@@ -33,20 +32,28 @@ and get player groups in order to display widgets for each admin group.
 ||
 | **hasPermission**          | Check if a certain player has a certain permission  |
 |                            | **String $login** The login of the user to check the permission for.|
+|                            | **String $permission** The permission to check for.|ser group of.|
+||
+| **hasGroupPermission**     | Check if a certain group has a certain permission  |
+|                            | **String $groupName** The name of the group to check permissions for.|
 |                            | **String $permission** The permission to check for.|
 ||
+
+This helper can be used in your windows factories or any other place you need to check permissions for. 
+You should not need to use this for chat commands as they will handle their permissions automatically.
 
 ### Admin Chat Commands. 
 
 This component also allows the creation of admin chat commands. In order to do this we will simply use 
-`eXpansion\Framework\AdminGroups\Model\AbstractAdminChatCommand` instead of `eXpansion\Framework\Core\Model\ChatCommand\AbstractChatCommand`
+`eXpansion\Framework\AdminGroups\Model\AbstractAdminChatCommand` 
+instead of `eXpansion\Framework\Core\Model\ChatCommand\AbstractChatCommand`
 
 When creating chat command using this class we our commands will automatically be prfixes with **admin**.
 So if we register a **restart** command it will actually work with **/admin restart** and not just **/restart**.
 
 It will also register aliases so that **/adm restart** works as well. Like normal chat commands you can also register 
-aliases. Lihe the command line if you register **res** as alias you are going to have **/admin res** & **/adm res** work.
-. 
+aliases. Like the command line if you register **res** as alias you are going to have **/admin res** & **/adm res** work.
+ 
 Finally when registering a AdminChatCommand you must register the permission needed for a user to use the command. 
 
 #### Exemple 
@@ -55,8 +62,8 @@ Finally when registering a AdminChatCommand you must register the permission nee
         class: eXpansion\Bundle\AdminChat\ChatCommand\Restart
         parent: expansion.admin_chat.chat_command.base
         arguments:
-            - "restart"
-            - "restart"
-            -  ['res', 'restartmap']
-            - '@expansion.framework.admin_groups.helpers.groups'
+            - "restart" # The chat commend to have /admin restart work
+            - "restart" # The permission needed by the player to use the chat command. 
+            -  ['res', 'restartmap'] # The aliases registered with this chat command.
+            - '@expansion.framework.admin_groups.helpers.groups' # The admin chat commands requires the admin groups helper
 ```
