@@ -8,9 +8,9 @@ The chat notification helper allows to send chat message to players ingame.
 It can be used to either send a message to a single user or to a group of users with proper translations. 
 
 The chat provider will also allow to add chat decorations to add color to the chat
-(See [Translations Helper](translations.md) for more details.) 
+(See [Translations Helper](translations.html) for more details.) 
 
-* **Service Name** : `expansion.framework.core.helpers.chat_notification`
+* **Service Name** : `expansion.helper.chat_notification`
 
 | Method                | Description |
 | --------------------- | ----------- |

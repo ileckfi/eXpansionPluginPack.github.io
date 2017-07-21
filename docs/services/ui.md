@@ -57,7 +57,7 @@ If you need any other service you can create a seter method in your factory and 
 
 ```yaml
         calls:
-            - [setAdminGroupsHelper, ['@expansion.framework.admin_groups.helpers.groups']]
+            - [setAdminGroupsHelper, ['@expansion.helper.admingroups']]
 ```
 
 #### Creating the ML Window service. 
@@ -135,7 +135,7 @@ Here is an exemple showing a widget to all players :
     expansion.framework.core.plugins.menu:
         class: eXpansion\Bundle\Menu\Plugins\Menu
         arguments:
-            - '@expansion.framework.admin_groups.helpers.groups'
+            - '@expansion.helper.admingroups'
             - '@expansion.framework.core.plugins.gui.menu'
         tags:
             - {name: expansion.plugin, data_provider: expansion.match_data}
@@ -213,7 +213,7 @@ class Menu implements StatusAwarePluginInterface, MatchDataListenerInterface
             index_3: null
             index_4: null
         calls:
-            - [setAdminGroupsHelper, ['@expansion.framework.admin_groups.helpers.groups']]
+            - [setAdminGroupsHelper, ['@expansion.helper.admingroups']]
 ```
 
 #### The sergvice class

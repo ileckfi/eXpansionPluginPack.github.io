@@ -38,8 +38,8 @@ In this file we would like create a new service to handle the /acme chat command
 
 So we are missing the `YouName\Bundle\Acme\ChatCommand\Acme` class. This class needs to extend `eXpansion\Framework\Core\Model\ChatCommand\AbstractChatCommand` and contain only a single execute function. 
 
+> php 
 ```php
-<?php
 public function execute($login, InputInterface $input) 
 {
     // Do stuff here
@@ -64,7 +64,7 @@ services:
 
 Well we are done creating our chat command. Let's try now to actually do something with this command. Display a message to the users? 
 
-In order to do this we will need to use the expansion notification service `expansion.framework.core.helpers.chat_notification`. We need to pass the service to our chat command plugin. Let's modify the chat_commands.yml in order to do this : 
+In order to do this we will need to use the expansion notification service `expansion.helper.chat_notification`. We need to pass the service to our chat command plugin. Let's modify the chat_commands.yml in order to do this : 
 
 ```yaml
     YouName.acme.chat_command.acme:
@@ -73,7 +73,7 @@ In order to do this we will need to use the expansion notification service `expa
         arguments:
             - "acme"
             - []
-            - '@expansion.framework.core.helpers.chat_notification'
+            - '@expansion.helper.chat_notification'
 ```
 
 At this point let's try and understand the parameters :
@@ -84,7 +84,6 @@ At this point let's try and understand the parameters :
 We need to modify our `ChatCommand\Acme` to handle the third argument in the constructor. So let's add the fallowing code in the proper places of our Acme file : 
 
 ```php
-<?php
 use eXpansion\Framework\Core\Helpers\ChatNotification;
 
 /** @var ChatNotification */
@@ -104,7 +103,6 @@ We can now use the chat notification in the execute method.
 
 
 ```php
-<?php 
 public function execute($login, InputInterface $input) 
 {
     $this->chatNotification->sendMessage('Hello, this is acme bundle speaking', null);
@@ -118,7 +116,6 @@ public function execute($login, InputInterface $input)
 Adding description & helpmessage to your commands is extremely simple, simply overide the the getDescription & getHelp methods in our command class.
 
 ```php
-<?php
     public function getDescription()
     {
         return 'Supe acme command description...;
@@ -139,7 +136,6 @@ Finally we will try and get a parameter in input. Our command system uses the sy
 In order to do this let's create a new configure method overiding the parent method.
 
 ```php
-<?php
     protected function configure()
     {
         parent::configure();
@@ -152,7 +148,6 @@ In order to do this let's create a new configure method overiding the parent met
 We will require the login of the user we wish to send the message to. 
 
 ```php
-<?php
 $this->inputDefinition->addArgument(
             new InputArgument('login', InputArgument::REQUIRED, 'Login of the user to send the message to.')
         );
@@ -163,16 +158,13 @@ $this->inputDefinition->addArgument(
 Now in the execute method we can get this login on the input. 
 
 ```php
-<?php
 $login = $input->getArgument('login');
 ```
 
 You don't need to check if the login argument exists as you have put `InputArgument::REQUIRED` and therefore expansion will handle the verification. 
 
-**! You mist nevertheless check that $login is connected on the server**
+**! You must never the less check that $login is connected on the server**
 
 ### Warnings !
 
 * Even true we use the symfony component you can't use the ask method during executions. 
-
-

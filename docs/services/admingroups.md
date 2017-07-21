@@ -22,7 +22,7 @@ This **service** will allow to check if a player has certain permissions, to whi
 and get player groups in order to display widgets for each admin group.
 
 
-* **Service Name** : `expansion.framework.admin_groups.helpers.groups`
+* **Service Name** : `expansion.helper.admingroups`
 
 | Method                     | Description |
 | -------------------------- | ----------- |
@@ -58,5 +58,5 @@ Finally when registering a AdminChatCommand you must register the permission nee
             - "restart"
             - "restart"
             -  ['res', 'restartmap']
-            - '@expansion.framework.admin_groups.helpers.groups'
+            - '@expansion.helper.admingroups'
 ```
