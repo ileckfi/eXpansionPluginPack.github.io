@@ -71,3 +71,11 @@ Finally we can ask a plugin to depend upon another plugin.
 ```
 
 When creating bundles try to seperate different logic into different plugis, so that you can a easy to maintain code. 
+
+### Status Aware Plugins
+
+A plugin will only activate if all the data providers it needs & all parents it needs are active. You  might need to be able to know
+if your plugin is running or not. 
+
+To do this you plugin needs to implement `eXpansion\Framework\Core\Plugins\StatusAwarePluginInterface`. 
+When it does the setStatus method will be called to let now the plugin when it's enabled and when it's disabled.
