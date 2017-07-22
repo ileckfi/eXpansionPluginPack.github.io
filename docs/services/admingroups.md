@@ -2,23 +2,18 @@
 layout: docs
 ---
 
-## Component : Admin Groups
+## Admin Groups
 
-The Admin Groups component of eXpansion allows having various admin groups with players in them. 
-Each group having different permissions. 
-
-There are multiple services forming this component, but as we will see layer a helper service simplifies the usage of the component. 
-Making it easy to use.
+The Admin Groups allows having various admin groups with players in them, each group having different permissions. 
 
 The Admin groups functionality of expansion will place each player in a certain group, 
 player that has no privileges will be put in the guest group. 
 
-In eXpansion V1 a player could bee in multiple groups, this is no longer possible. 
-A player can only be in one Admin group.
+> Difference to eXpansion<sup>1</sup> -  A player can only be in one Admin group.
 
 ### Admin Groups Helper
 
-This **service** will allow to check if a player has certain permissions, to which admin group a player belongs, 
+Allowss to check if a player has certain permissions, to which admin group a player belongs, 
 and get player groups in order to display widgets for each admin group.
 
 
@@ -41,7 +36,7 @@ and get player groups in order to display widgets for each admin group.
 This component also allows the creation of admin chat commands. In order to do this we will simply use 
 `eXpansion\Framework\AdminGroups\Model\AbstractAdminChatCommand` instead of `eXpansion\Framework\Core\Model\ChatCommand\AbstractChatCommand`
 
-When creating chat command using this class we our commands will automatically be prfixes with **admin**.
+When creating chat command using this class we our commands will automatically be prefixed with **admin**.
 So if we register a **restart** command it will actually work with **/admin restart** and not just **/restart**.
 
 It will also register aliases so that **/adm restart** works as well. Like normal chat commands you can also register 

@@ -2,13 +2,13 @@
 layout: docs
 ---
 
-## Storage : Map
+## Map Storage
 
 Instead of each Bundle fetching in it's own map information, this data is centralized in the map storage **service**.
 
 This service keeps track of all maps currently on the server.
 
-* **Service Name** : `expansion.framework.core.storage.map`
+**Service Name** : `expansion.storage.map`
 
 | Method                     | Description |
 | -------------------------- | ----------- |

@@ -2,62 +2,69 @@
 layout: docs
 ---
 
-## Manialinks 
+## User Interfaces 
 
-In eXpansion2 manialinks are consisted of 2 essetial services. 
-* **The Plugin** Will hold the logic of when to display/update the manailink, in case of windows this can be a chat command, for widgets it can be on MapBegin event. 
-* **The Manialink Factory** will create the manialink & it's content. We will use the factory in the plugin to create/update/destroy the manialink. 
+ManiaPlanet uses UI technology named ManiaLink which is build on XML. 
+In eXpansion<sup>2</sup> we use FancyManiaLinks which is set of PHP classes to build XML, so we don't need to use xml templates and partials.
+This allows us to do some really cool stuff, like add script partials to main script file, when if you use a prebuild element. Also where we use this feature is to 
+automatically generate translations for UI labels.
+     
+Creating user interfaces in eXpansion<sup>2</sup>.  
 
-So in a MVC structure, the Plugin is the Controller, the Manialink Factory is the view, they both can use any number of Models to achieve their purpose.
+1. **The Plugin** Will hold the logic when to display/update the manialink, in case of windows this can be a chat command, for widgets it can be on MapBegin event. 
+2. **The Manialink Factory** Will create the manialink UI & it's content and also handle most of logic for example when user clicks a button and the event needs to travel back to backend. 
 
-> In eXpansion2 when a player disconnects you don't need to destroy the manialink, the core will take care of it !
+### Directory structure and conventions
 
-Let's note that the Manialink Factory is also handled by the core as a plugin as it needs to be aware of player disconnect events. 
 
-### Creating a new Manialink, 
 
-At this instance we have 2 options either we wish to create a window, in that case we need to extend `WindowFactory` or we wish to create a Widget in which case we will extend `WidgetFactory`. But on both cases we will only bother with 2 functions. 
+### Creating new manialink
+
+Core GUI Factories provides you currently 2 types of UI builders to extend with.
+
+1. WindowFactory
+2. WidgetFactory
+
+Difference of the two is, Widget is rendered to be a static and borderless, without any extra elements and Window will create movable, framed window with closing possibility.  
+
+But on both classes we will only need to implement the abstract 2 methods. 
 
 ```php
-<?php
 protected function createContent(Manialink $manialink) { }
 
 protected function updateContent(Manialink $manialink) { }
 ```
 
-So how does this work, when a window or widget is displayed for the first time createContent & updateContent are called.
-When a window or widget content is updated only the updateContent will be called. 
+> Note: With eXpansion<sup>2</sup> when a player disconnect you don't need to destroy the manialink manually, the core will take care of it!
 
-In both these functions we will append childs to the manialinks, 
+When your Manialink is displayed for the first time, both of the functions are called respectably.
+And when UI update is needed, well you guessed right, updateContent gets called.
 
-```php
-<?php
-$manialink->addChild(Label::create());
-```
-
-#### Creating the ML Widtget service
+#### Creating a Widget 
 
 ```yaml
     expansion.framework.core.plugins.gui.menu:
         parent: "expansion.framework.core.plugins.gui.widget_factory"
         class: 'Class of your factory'
         arguments:
-            index_0: 'Name of the window' # This can be a translation string as well, 
+            index_0: 'Title of the window' # This can be a translation string as well 
             index_1: 180 # Width of the ML
-            index_2: 90  # Window of the ML
+            index_2: 90  # Height of the ML
             index_3: null # Position X, if null it will center it
             index_4: null # Position Y, if null it will center it
         tags:
             - {name: expansion.plugin, data_provider: expansion.user_group} 
 ```
 
-The other arguments the factory needs are provided thanks to the parent class. This way the core team are free to change them without affecting your code.
+The other arguments the factory needs are provided thanks to the parent class.
+This way the core team are free to change them without affecting your code.
 
-If you need any other service you can create a seter method in your factory and add this in your service declaration : 
+If you need any other service in your class, you can create a setter method in your factory and add following calls to your gui.yml declaration:  
 
 ```yaml
         calls:
             - [setAdminGroupsHelper, ['@expansion.helper.admingroups']]
+            - [setDedicatedConnection, ['@expansion.service.dedicate_connection']]
 ```
 
 #### Creating the ML Window service. 
@@ -216,7 +223,7 @@ class Menu implements StatusAwarePluginInterface, MatchDataListenerInterface
             - [setAdminGroupsHelper, ['@expansion.helper.admingroups']]
 ```
 
-#### The sergvice class
+#### The service class
 
 ```php
 <?php
