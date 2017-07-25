@@ -157,3 +157,104 @@ class myWindowFactory {
 }
 ?>
 ```
+
+# Layout builders
+
+Layout builders are helper classes to position elements more easily! Layouts can take any Renderable uiComponent, which has predefined size.
+You can also add lines to row or vice versa. 
+## layoutRow
+
+```php
+<?php
+namespace mybundle\example\plugins\example;
+
+use eXpansion\Framework\Gui\Components\uiCheckbox;
+use eXpansion\Framework\Gui\Layouts\layoutRow;
+
+class myWindowFactory {
+    
+    protected function createContent(ManialinkInterface $manialink)
+    {
+        // to add in array
+        $checkbox = new uiCheckbox("test checkbox 1", "checkbox1");
+        $checkbox2 = new uiCheckbox("test checkbox 2", "checkbox2");
+        $row = new layoutRow(0, 0, [$checkbox, $checkbox2], 0);
+        $manialink->addChild($row);
+        
+        // to add one by one
+        $rowHelper = new layoutRow(0, -$row->getHeight(), [], 1); // initialize with empty array
+        for ($x = 0; $x < 10; $x++) {
+            $btn = new uiCheckbox('box'.$x, 'cb_'.$x);
+            $rowHelper->addChild($btn); // then add 
+        }
+        $manialink->addChild($rowHelper);
+                              
+    }
+}
+?>
+```
+
+## layoutLine
+
+```php
+<?php
+namespace mybundle\example\plugins\example;
+
+use eXpansion\Framework\Gui\Components\uiButton;
+use eXpansion\Framework\Gui\Layouts\layoutLine;
+
+class myWindowFactory {
+    
+    protected function createContent(ManialinkInterface $manialink)
+    {
+        // to add in array
+        $button = new uiButton("Apply");
+        $button2 = new uiButton("Cancel", uiButton::TYPE_DECORATED);
+        $row = new layoutRow(0, 0, [$button, $button2 ], 0);
+        $manialink->addChild($row);
+        
+        // to add one by one
+        $lineHelper = new layoutLine(0, -9, [], 1); // initialize with empty array
+        for ($x = 0; $x < 10; $x++) {
+            $btn = new uiButton('btn'.$x, 'btn_'.$x);
+            $lineHelper->addChild($btn); // then add 
+        }
+        $manialink->addChild($lineHelper);
+    }
+}
+?>
+```
+## Complex example with rows and lines...
+
+
+```php
+<?php
+namespace mybundle\example\plugins\example;
+
+use eXpansion\Framework\Gui\Components\uiButton;
+use eXpansion\Framework\Gui\Layouts\layoutLine;
+
+class myWindowFactory {
+    
+    protected function createContent(ManialinkInterface $manialink)
+    {       
+       $checkbox = new uiCheckbox("test checkbox 1", "checkbox1");
+       $checkbox2 = new uiCheckbox("test checkbox 2", "checkbox2");
+       $line1 = new layoutRow(0, 0, [$checkbox, $checkbox2], 0);   // sum the two ui components to a line
+
+       $ok = new uiButton("Apply", uiButton::TYPE_DECORATED);
+       $ok->setAction($this->actionFactory->createManialinkAction($manialink, [$this, 'ok'], ["ok" => "ok"]));
+
+       $cancel = new uiButton("Cancel");
+       $cancel->setAction($this->actionFactory->createManialinkAction($manialink, [$this, 'ok'], ["ok" => "cancel"]));
+       $line2 = new layoutLine(0, 0, [$ok, $cancel], 1); // sum the two ui components to second line 
+       
+
+       $row = new layoutRow(0, -10, [$line1, $line2], 0);  // make two rows of the lines
+       $manialink->addChild($row);     
+        
+    }
+}
+?>
+```
+
