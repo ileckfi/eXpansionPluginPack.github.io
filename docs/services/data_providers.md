@@ -2,46 +2,170 @@
 layout: docs
 ---
 
-## DataProviders
+# The Event System
 
-Data Providers are a different way of thinking to create a controller. 
+**Data Providers are a different way to create a controller.** 
 
-The idea is to separate gamemode (script) logic from the actual plugin. 
-We do this in order to make the controller easier to adapt to different game modes. 
-
-So here is a small diagram of how events travels throught eXpansion. 
-
+eXpansion<sup>2</sup> event system differs from previous controller design where dedicated server event gets routed directly to plugin method.
+The idea is to separate dedicated and game mode script events from directly passing to plugin.
+This way it's possible to route and re-organize events and even adapt the controller easier: 
+ 1. different scripted game modes  
+ 2. possible future game api changes
+   
 ![Diagramme explaining Data Providers]({{ "/assets/img/doc/DataProviders.jpg" | absolute_url }})
 
-Basically we have multiple TimeDataProviders, each one of them is set up to work in certain conditions
-(we will so about it later), at the begining of a map eXpansion checks which data provider is best suited for 
-the current situation and will then start it. 
+The diagram shows how event data flows from dedicated to plugin.
 
-Data providers will check for 3 elements : 
-* **Title** : ALL, TM, SM. 
-* **mode** : ALL, script, timeattack, rounds...
-* **script** : ALL, TimeAttack.script.txt
-
-We globally fournish data providers only for script modes but nothing prevents creating some for other script modes.
+1. Script Mode or Dedicated server sends event.
+2. Dedicated server api receives the event.
+3. Multiple DataProviders are set to work in certain conditions.
+    - at begin of a map eXpansion<sup>2</sup> checks which data provider is most best suited for the current situation and starts it. 
+4. The Selected DataProvider sends it's abstracted event to Records plugin
+5. Records plugin can work as a new data provider which seeds other plugins who request the data upon.
+6. Next plugins process the records plugin data, and show different things...
+    1. a chat message plugin, which shows the new record at game chat.
+    2. records widget, which draws hud element to the screen
+    3. best scores widget... etc...
+    
+## Data Providers
+  
+Data providers, when initialized, will check for 3 conditions from the game: 
+* **Title**
+    - Generic: 
+        - ALL
+        - TM
+        - SM
+    - Specific
+        - "TmStadium@nadeo"
+        - "Obstacle@steeffeen"
+        - ...        
+* **Dedicated Game Mode**
+    - ALL
+    - Script
+    - Rounds
+    - Team
+    - ...
+* **Script name**
+    - ALL
+    - "TimeAttack.Script.txt"
+    - "Rounds.Script.txt"
+    - ...
 
 When registering a script mode we can use the keyword `ALL` to make it compatible with all Titles and such. 
-This is the case for exemple for the PlayerDataProvider which provides information onPlayerConnect & Disconnect. 
+In our example the PlayerDataProvider provides information onPlayerConnect and onPlayerDisconnect. 
 
-When a data provider is chosen it will chose the most suitable data provider and not the first one that is compatible.
-WHat that this means; Let's say we created a `TimeDataProvider` compatible with `ALL` script modes, but on some custom script mode
-we shall code `acme.script.txt` the provider doesn't work well. At this point we can create another `TimeDataProvider` 
-compatible with `acme.script.txt` only. As this new data provider has more specific information on what script it can run on, 
-it will be chosen intstead of the more generic one. 
+When choosing data provider, expansion will use the most suitable data provider - not the first one that is compatible.
 
-If we take in concreate exemple of what data providers allow, the controller by default have a LocalRecords plugin as well
-as a LocalRecrodsWidget plugin. But when installed on Shootmania Obstacle mode as there is no `TimeDataProviders` compatible
-those plugins will be disabled. 
+Let's say we have a `Records plugin` which depends on `TimeDataProvider` compatible with `TM` script modes.
+It works nicely for build-in modes, but some custom script mode like `acme.script.txt` we notice that the provider does not work well. 
 
-Any developer can at this point create a new `TimeDataProvider` for SM Obstacle in his `SMObstacleAdapterBundle` for exemple. 
-Once this is created the `LocalRecordsPlugin`  will be enabled, and so the `LocalRecordsDataProvider` will enable as well, 
-which in it's turn will enable `LocalRecrodsWidget`. 
+To make our plugin work well again, it's now possible to create another `TimeDataProvider` which is set to be compatible with `acme.script.txt` only. 
+The new data provider has more specific information on what callbacks the script has and it will be chosen instead of the more generic one. 
 
-Data providers can also be used to send gamemode dependent "configuration" data to plugins. For exemple widget positions. 
+What happens if controller is started on Storm ?
+
+Well the LocalRecords plugin gets disabled, since there's no `TimeDataProvider` available for Storm titles.
+Any developer can though easily make local records and widget and other dependent plugins to work, by implementing `TimeDataProvider` for Storm or other custom game mode. 
+Once this is created the `LocalRecordsPlugin` will be enabled, and so the `LocalRecordsDataProvider` will enable as well, which in it's turn will enable `LocalRecrodsWidget`. 
+
+Data providers can also be used to send game mode dependent "configuration" data to plugins. For example widget positions. 
+
+## Registering a Data Provider
+
+A data provider is basicly a service, like nearly everything else in eXpansion<sup>2</sup>. 
+ 
+Very basic data provider compatible with everything: 
+
+> file: **bundle**/resources/config/services.yaml
+```yaml
+services:
+    expansion.acme.acme_data_provider:
+        class: yourName\AcmeBundle\DataProvider\Acme
+        tags:
+            - {name: expansion.dataprovider, provider: "your_name.acme", interface: "yourName\AcmeBundle\DataProvider\Listener\ListenerInterfaceYournameAcme"}
+            - {name: expansion.dataprovider.compatibility, title: ALL}
+```
+
+The data provider uses the symfony tags. 
+
+The first tag declares the provider with 2 information:
+* **provider** 
+    - You can have multiple services for the same provider so that eXp can chose from.
+* **interface** 
+    - The interface that defines the methods the provider provides. 
+
+The second tag allows to add compatibility information.
+
+In this case we have basically said our provider is compatible with all titles, and as we have not given any specification for mode & scrip it's compatible with all of them as well. 
+
+To make it compatible for Trackmania - both Rounds & Laps script mode we would have written something like this.
+
+```yaml
+services:
+    expansion.acme.acme_dataprovider:
+        class: yourName\AcmeBundle\DataProvider\Acme
+        tags:
+            - {name: expansion.dataprovider, provider: "your_name.acme", interface: "YourName\AcmeBundle\DataProvider\Listener\ListenerInterfaceYournameAcme"}
+            - {name: expansion.dataprovider.compatibility, title: TM, mode: 0, script: Rounds.Script.txt }
+            - {name: expansion.dataprovider.compatibility, title: TM, mode: 0, script: Laps.Script.txt }
+```
+
+Providers are useless, if they don't listen to events. We use another tag for that.
+
+```yaml
+services:
+    expansion.acme.acme_dataprovider:
+        class: yourName\AcmeBundle\DataProvider\Acme
+        tags:
+            - {name: expansion.dataprovider, provider: "your_name.acme", interface: "ourName/AcmeBundle\DataProvider\Listener\ListenerInterfaceYournameAcme"}
+            - {name: expansion.dataprovider.compatibility, title: TM, mode: 0, script: Rounds.Script.txt }
+            - {name: expansion.dataprovider.compatibility, title: TM, mode: 0, script: Laps.Script.txt }
+            - {name: expansion.dataprovider.listener, event_name: PlayerConnect, method: onPlayerConnect }
+```
+
+When the dedicated server `PlayerConnect` event happens the `onPlayerConnect` method of this data provider should be called. 
+
+You can add as much of these listeners as you wish. 
+
+```yaml
+services:
+    expansion.acme.acme_dataprovider:
+        class: yourName\AcmeBundle\DataProvider\Acme
+        tags:
+            - {name: expansion.dataprovider, provider: "your_name.acme", interface: "ourName\AcmeBundle\DataProvider\Listener\Acme"}
+            - {name: expansion.dataprovider.compatibility, title: TM, mode: 0, script: Rounds.Script.txt}
+            - {name: expansion.dataprovider.compatibility, title: TM, mode: 0, script: Laps.Script.txt}
+            - {name: expansion.dataprovider.listener, event_name: PlayerConnect, method: onPlayerConnect}
+            - {name: expansion.dataprovider.listener, event_name: PlayerDisconnect, method: onPlayerDisconnect}
+```
+
+Finally we can make a listener depend upon a parent plugin. 
+
+```yaml
+services:
+    expansion.acme.acme_dataprovider:
+        class: yourName/AcmeBundle\DataProvider\Acme
+        tags:
+            - {name: expansion.dataprovider, provider: "your_name.acme", interface: "ourName\AcmeBundle\DataProvider\Listener\Acme"}
+            - {name: expansion.dataprovider.compatibility, title: TM, mode: 0, script: Rounds.script.txt}
+            - {name: expansion.dataprovider.compatibility, title: TM, mode: 0, script: Laps.script.txt}
+            - {name: expansion.dataprovider.parent, parent: "Service id of the plugin it requires to run"}
+            - {name: expansion.dataprovider.listener, event_name: PlayerConnect, method: onPlayerConnect}
+            - {name: expansion.dataprovider.listener, event_name: PlayerDisconnect, method: onPlayerDisconnect}
+```
+
+## Dispatching a custom event
+
+As said, data provider might depend upon a another plugin. When this happens it means that the plugin is dispatching events that needs to be normalized.
+
+To dispatch events you need the eXpansion dispatcher service `expansion.service.dispatcher`
+
+Then use the dispatcher function: 
+
+```php
+$dispatcher->dispatch('my_name.acme.super_event', [$var1, $var2]);
+```
+
 
 ## Available Data Providers
 
@@ -50,133 +174,21 @@ that you will probably won't need. You can always contact us if you wish to know
 
 ### Generic Providers
 
-This providers works on all game modes & all situations
-
-#### Chat Data
-
-Allows to keep track of what is going on in chat.
-
-* **Name :** expansion.chat_data
-* **Interface :** eXpansion\Framework\Core\DataProviders\Listener\ChatDataListenerInterface
- 
-#### Player_data
- 
-Keep track of players connecting and disconnecting.
- 
-* **Name :** expansion.player_data
-* **Interface :** eXpansion\Framework\Core\DataProviders\Listener\PlayerDataListenerInterface
- 
-#### Map Data
-
-Keep track to changes to the map list.
- 
-* **Name :** expansion.map_data
-* **Interface :** eXpansion\Framework\Core\DataProviders\Listener\MapDataListenerInterface 
-
-#### Timer
- 
-Base Controller events & timer events such as every second.
- 
-* **Name :** expansion.timer_data
-* **Interface :** eXpansion\Framework\Core\DataProviders\Listener\TimerDataListenerInterface
+@todo 
+Generate list here
  
 ### TM Data Providers
 
+@todo 
+Generate list here
+
+
 ### SM Data Providers
+
+@todo 
+Generate list here
 
 ### Compatibility Providers
 
 These data providers contains no logic in them, they exist just to limit a plugin to a certain gamemode & title.
 
-## Registering a Data Provider
-
-A data provider is a multitude of services like everything else in eXpansion. 
- 
-Here is a very basic data provider compatible with everything and which does nothing : 
-
-```yaml
-services:
-    expansion.acme.acme_data_provider:
-        class: yourName/AcmeBundle\DataProvider\Acme
-        tags:
-            - {name: expansion.data_provider, provider: "your_name.acme", interface: "ourName/AcmeBundle\DataProvider\Listener\Acme"}
-            - {name: expansion.data_provider.compatibility, title: ALL}
-```
-
-As you can see the data provider uses the symfony tags; the first tag declares the provider with 2 information
-* **The name of the provider :** You cna have multiple services for the same provider so that eXp can chose from.
-* **The interace :** The interface the plugin that uses this provider needs to implement. 
-
-The second tag allows to add compatibility information. So in this case we have basically said our provider is compatible with all titles, 
-and as we have not given any specification for mode & scrip it's compatible with all of them as well. 
-
-If we wanted to make it compatible for TM Rounds script & Laps script mode we would have written something like this.
-
-```yaml
-services:
-    expansion.acme.acme_data_provider:
-        class: yourName/AcmeBundle\DataProvider\Acme
-        tags:
-            - {name: expansion.data_provider, provider: "your_name.acme", interface: "ourName/AcmeBundle\DataProvider\Listener\Acme"}
-            - {name: expansion.data_provider.compatibility, title: TM, mode:0, script:Rounds.script.txt}
-            - {name: expansion.data_provider.compatibility, title: TM, mode:0, script:Laps.script.txt}
-```
-
-Of course our data providers as they are are useless they need to listen to dedicated server events. we will ad another tag for that.
-
-```yaml
-services:
-    expansion.acme.acme_data_provider:
-        class: yourName/AcmeBundle\DataProvider\Acme
-        tags:
-            - {name: expansion.data_provider, provider: "your_name.acme", interface: "ourName/AcmeBundle\DataProvider\Listener\Acme"}
-            - {name: expansion.data_provider.compatibility, title: TM, mode:0, script:Rounds.script.txt}
-            - {name: expansion.data_provider.compatibility, title: TM, mode:0, script:Laps.script.txt}
-            - {name: expansion.data_provider.listener, event_name: PlayerConnect, method: onPlayerConnect}
-```
-
-This tells that when the dedicated server `PlayerConnect` event happens the `onPlayerConnect` method of this data provider should be calles. 
-
-We can add as much of thse listeners as we wish. 
-
-```yaml
-services:
-    expansion.acme.acme_data_provider:
-        class: yourName/AcmeBundle\DataProvider\Acme
-        tags:
-            - {name: expansion.data_provider, provider: "your_name.acme", interface: "ourName/AcmeBundle\DataProvider\Listener\Acme"}
-            - {name: expansion.data_provider.compatibility, title: TM, mode:0, script:Rounds.script.txt}
-            - {name: expansion.data_provider.compatibility, title: TM, mode:0, script:Laps.script.txt}
-            - {name: expansion.data_provider.listener, event_name: PlayerConnect, method: onPlayerConnect}
-            - {name: expansion.data_provider.listener, event_name: PlayerDisconnect, method: onPlayerDisconnect}
-```
-
-Finally we can also make a listener depend upon a plugin, 
-
-```yaml
-services:
-    expansion.acme.acme_data_provider:
-        class: yourName/AcmeBundle\DataProvider\Acme
-        tags:
-            - {name: expansion.data_provider, provider: "your_name.acme", interface: "ourName/AcmeBundle\DataProvider\Listener\Acme"}
-            - {name: expansion.data_provider.compatibility, title: TM, mode:0, script:Rounds.script.txt}
-            - {name: expansion.data_provider.compatibility, title: TM, mode:0, script:Laps.script.txt}
-            - {name: expansion.data_provider.parent, parent: "Service id of the plugin it requires to run"}
-            - {name: expansion.data_provider.listener, event_name: PlayerConnect, method: onPlayerConnect}
-            - {name: expansion.data_provider.listener, event_name: PlayerDisconnect, method: onPlayerDisconnect}
-```
-
-## Dispatching a custom event. 
-
-As we said a data provider might depend upond another plugin. When this happens it means that the plugin is dispatching events that needs to be normalized.
-
-To dispatch events you need the eXpansion dispatcher service `expansion.framework.core.services.application.dispatcher`
-
-Then you can use the dispatch function : 
-
-```php
-<?php 
-$dispatcher->dispatch('my_name.acme.super_event', [$var1, $var2]);
-```
-
-Now you can check the next chapter, the Plugin Components to see how to use thse providers.
