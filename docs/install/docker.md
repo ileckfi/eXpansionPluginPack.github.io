@@ -51,7 +51,10 @@ dedicated:
         MP_PASSWORD: password
         MP_GAME_SETTINGS: 'MatchSettings/TMCanyonA.txt'
     volumes:
-        - ./data/UserData:/var/maniaplanet/UserData
+        - ./data/UserData/Maps:/var/maniaplanet/UserData/Maps
+        - ./data/UserData/Config:/var/maniaplanet/UserData/Config
+        - ./data/UserData/Scripts:/var/maniaplanet/UserData/Scripts
+        
 ```
 
 You are going to need to set up the login and password of you maniaplanet server account in 
@@ -61,7 +64,7 @@ the `MP_LOGIN` and `MP_PASSWORD` section.
 
 Finally we can configure our eXpansion image. 
 
-```yaml
+```yml
 expansion:
     image: docker/mp-expansion
     links:
@@ -70,6 +73,9 @@ expansion:
     volumes:
         - ./data/expansion/app:/var/expansion/app
         - ./data/expansion/composer.json:/var/expansion/composer.json
+        # We also share the user data from the dedicated so that eXpansion can read & write in the files
+        - ./data/UserData/Maps:/var/maniaplanet/UserData/Maps
+        - ./data/UserData/Config:/var/maniaplanet/UserData/Config
 ```
 
 Our volumes will allow us to configure expansion, but as it is everything is configured to work already. 
@@ -132,3 +138,9 @@ And to stop them
 ```bash
 docker-compose stop
 ```
+
+## Todo on our side
+
+eXpansion as it is today detects the dedicated as remote, this is true but the expansion docker still 
+has access to the dedicated files. We need to add options to allow eXpansion to understand that the 
+dedicated files can be accessed at /var/maniaplanet/UserData
