@@ -13,11 +13,12 @@ player that has no privileges will be put in the guest group.
 
 ### Admin Groups Helper
 
-Allowss to check if a player has certain permissions, to which admin group a player belongs, 
+* **Autowire : TRUE** This service can be autowired into your services. 
+* **Class :** eXpansion\Framework\AdminGroups\Helpers\AdminGroups
+
+Allows to check if a player has certain permissions, to which admin group a player belongs, 
 and get player groups in order to display widgets for each admin group.
 
-
-* **Service Name** : `expansion.helper.admingroups`
 
 | Method                     | Description |
 | -------------------------- | ----------- |
@@ -60,5 +61,5 @@ Finally when registering a AdminChatCommand you must register the permission nee
             - "restart" # The chat commend to have /admin restart work
             - "restart" # The permission needed by the player to use the chat command. 
             -  ['res', 'restartmap'] # The aliases registered with this chat command.
-            - '@expansion.framework.admin_groups.helpers.groups' # The admin chat commands requires the admin groups helper
+            - '@eXpansion\Framework\AdminGroups\Helpers\AdminGroups' # The admin chat commands requires the admin groups helper, this can be autowired !!
 ```

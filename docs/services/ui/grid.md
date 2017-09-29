@@ -10,7 +10,7 @@ To create a grid you will need either a Window or a Widget factory but also a Da
 
 **Data Collections** are classes containing all the necessery methods for grids to get sorted & filtered data.
 
-### Data Collection, 
+### Data Collections, 
 
 There are 2 types of prebuilt data collections in eXpansion, 
 nothing prevents you from creating you own that will use a custom data source. 
@@ -32,7 +32,7 @@ $collection = $this->dataCollectionFactory->create(
         ['name' => 'TOTO-1', 'size' => 5],
         ['name' => 'TOTO-2', 'size' => 7],
     ]
-)
+);
 ```
 
 #### Object Data Collection Factory, 
@@ -50,16 +50,21 @@ $collection = $this->dataCollectionFactory->create(
         $myObject1,
         $myObject2,
     ]
-)
+);
 ```
 
 #### Custom Data Collections
 
-TODO Describe how to create a custom data collection.
+You can also create your own grid collections
+
+TODO: Describe how to create a custom data collection.
 
 ### Using the Grid Builder
 
-To create a grid you need the grid builder factory service `@expansion.framework.core.model.gui.grid.builder_factory`
+* **Autowire : TRUE** This service can be autowired into your services. 
+* **Class :** eXpansion\Framework\Core\Model\Gui\Grid\GridBuilderFactory
+
+To create a grid you need the grid builder factory service. This service can be **autowired** into your window builder.
 
 With this you can generate in instance of grid builder that you will be able to use to create you grid.
 
@@ -101,7 +106,6 @@ $contentFrame = $manialink->getContentFrame();
 $contentFrame->addChild($grid);
 ```
 
-
 #### Adding columns
 
 Before building the grid you will need to configure the columns you wish to display.
@@ -115,7 +119,7 @@ $gridBuilder->setManialink($manialink)
         'command',
         "expansion_core.windows.chat_commands.column_command",
         25
-    )
+    );
 ```
 
 The first parameter is the key in the associative array, 
@@ -133,14 +137,13 @@ $gridBuilder->setManialink($manialink)
         'command',
         "expansion_core.windows.chat_commands.column_command",
         25
-    )
-<?php 
+    );
 $gridBuilder->setManialink($manialink)
     ->addTextColumn(
         'command2',
         "expansion_core.windows.chat_commands.column_command_2",
         25
-    )
+    );
 ```
 
 In this case the both columns will be of equal width filling the full width of the grid. 
@@ -154,14 +157,13 @@ $gridBuilder->setManialink($manialink)
         'command',
         "expansion_core.windows.chat_commands.column_command",
         2
-    )
-<?php 
+    ); 
 $gridBuilder->setManialink($manialink)
     ->addTextColumn(
         'command2',
         "expansion_core.windows.chat_commands.column_command_2",
         1
-    )
+    );
 ```
 
 #### Adding action buttons
@@ -171,7 +173,7 @@ But in action buttons you will need to add something else then a string, but a b
 
 ```php
 <?php
-->addActionColumn(
+$addTextColumn->addActionColumn(
     'description',
     '',
     5,
@@ -181,7 +183,7 @@ But in action buttons you will need to add something else then a string, but a b
 ```
 
 
-1) Action columns need a unque, key
+1) Action columns need a unique, key
 2) It can take a text in parameter if no pregenerated element needs to be used.
 3) As with a TextColumn a width coefficiency
 4) The action callback, 
@@ -263,7 +265,7 @@ It allows less flexibility as you can not display more then one grid in one wind
 ```php
 <?php
 
-class MyWindoWFActory extends GridWindowFactory
+class MyWindoWFactory extends GridWindowFactory
 {
     /**
      * @param ManialinkInterface $manialink
@@ -282,7 +284,7 @@ class MyWindoWFActory extends GridWindowFactory
                 'expansion_maps.gui.window.column.index',
                 '1',
                 true
-            )
+            );
         $manialink->setData('grid', $gridBuilder);
     }
 }

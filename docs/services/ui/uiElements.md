@@ -2,12 +2,15 @@
 layout: docs
 ---
 
-# UI Elements 
+## UI Elements 
+
+* **Autowire : TRUE** This service can be autowired into your services. 
+* **Class :** eXpansion\Framework\Gui\Ui\Factory
 
 eXpansion<sup>2</sup> has some custom FML elements written to help you build your ui.
 These are accessible through a factory. The idea is to normalize the display in all the manialinks of the controller.
 
-All Widget & Windows factories has the uiFactory pre injected in them. The factory can be used with :
+All Widget & Windows factories has the UI Factory pre injected in them. The factory can be used with :
 ```php
 <?php
 $this->uiFactory->createSomething($argument1, $argument2);
@@ -16,7 +19,7 @@ $this->uiFactory->createSomething($argument1, $argument2);
 The idea of using a factory service is that this allows any bundle developer to override our elements to completely 
 redesign eXpansion.
 
-## uiLabel
+### uiLabel
 
 usage differs little from FML native label:
 
@@ -38,7 +41,7 @@ class myWindowFactory {
 
 type can be: `uiLabel::TYPE_NORMAL`, `uiLabel::TYPE_TITLE`, `uiLabel::TYPE_HEADER`
 
-## uiButton
+### uiButton
 
 usage:
 ```php
@@ -62,7 +65,7 @@ types:
 additional methods are:
 `setText('string)`, `setTextColor('rrggbbbaa')`,`setBackgroundColor('rrggbbbaa')`, `setFocusColor()`, `setBorderColor()`, `setAction()`
 
-## uiCheckbox
+### uiCheckbox
 
 usage:
 ```php
@@ -100,7 +103,7 @@ class myWindowFactory {
 
 > uiCheckbox returns $parameters: key as name and value of string "0" or "1"
 
-## uiDropdown
+### uiDropdown
 
 usage:
 ```php
@@ -136,7 +139,7 @@ class myWindowFactory {
 ?>
 ```
 
-## uiLine
+### uiLine
 
 Draws a line based on starting point and (angle + length) or ending point
 
@@ -161,7 +164,7 @@ class myWindowFactory {
 ?>
 ```
 
-## uiBackground
+### uiBackground
 
 Draws a background behind a label or another element. 
 You can draw 2 types of background one for titles & one for normal content. 
@@ -187,7 +190,7 @@ class myWindowFactory {
 ?>
 ```
 
-## uiGridLine
+### uiGridLine
 
 A grid line is basically a line with labels & a background behind it. 
 GridLines have fixed width and will redimension elements of a line in order to fit them.
@@ -215,11 +218,12 @@ class myWindowFactory {
 ?>
 ```
 
-# Layout builders
+## Layout builders
 
 Layout builders are helper classes to position elements more easily! Layouts can take any Renderable 
 uiComponent, which has predefined size. You can also add lines to row or vice versa. 
-## layoutRow
+
+### layoutRow
 
 ```php
 <?php
@@ -248,7 +252,7 @@ class myWindowFactory {
 ?>
 ```
 
-## layoutLine
+### layoutLine
 
 ```php
 <?php
@@ -278,7 +282,7 @@ class myWindowFactory {
 ?>
 ```
 
-## Complex example with rows and lines...
+### Complex example with rows and lines...
 
 ```php
 <?php

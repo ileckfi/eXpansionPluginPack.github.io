@@ -2,12 +2,12 @@
 layout: docs
 ---
 
-# Directory Structure of Bundle
+# Directory Structure of a Bundle
 
 Directories are marked **bold**. Mandatory files are marked `red`.
 
 * **Bundle**    
-    * **MyPlugin**
+    * **MyPluginBundle**
         - `MyPluginBundle.php`                   
         * **ChatCommand**
             - Help.php

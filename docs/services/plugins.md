@@ -12,8 +12,8 @@ Plugins have parent plugins and they have data providers.
 ## Declaring a plugin 
 
 ```yaml
-    expansion.acme.acme_plugin:
-        class: yourName/AcmeBundle/Plugin\Acme
+    yourName\AcmeBundle\Plugin\Acme:
+        class: yourName\AcmeBundle\Plugin\Acme
         tags:
             - {name: expansion.plugin, data_provider: expansion.timer_data}
 ```
@@ -62,15 +62,15 @@ class Acme implements TimerDataListenerInterface, PlayerDataListenerInterface
 Finally we can ask a plugin to depend upon another plugin. 
 
 ```yaml
-    expansion.acme.acme_plugin:
-        class: yourName/AcmeBundle/Plugin\Acme
+    yourName\AcmeBundle\Plugin\Acme:
+        class: yourName\AcmeBundle\Plugin\Acme
         tags:
             - {name: expansion.plugin, data_provider: expansion.timer_data}
             - {name: expansion.plugin, data_provider: expansion.player_data}
             - {name: expansion.plugin.parent, parent: "Service id of the plugin it requires to run"}
 ```
 
-When creating bundles try to seperate different logic into different plugis, so that you can a easy to maintain code. 
+When creating bundles try to seperate different logic into different plugins, so that you can a easy to maintain code. 
 
 ### Status Aware Plugins
 
@@ -79,3 +79,5 @@ if your plugin is running or not.
 
 To do this you plugin needs to implement `eXpansion\Framework\Core\Plugins\StatusAwarePluginInterface`. 
 When it does the setStatus method will be called to let now the plugin when it's enabled and when it's disabled.
+
+You usually don't need this, as when a plugin id disabled all calls to it's methods from the data prodivers will stop.

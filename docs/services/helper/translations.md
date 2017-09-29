@@ -4,6 +4,9 @@ layout: docs
 
 ## Helper : Translations
 
+* **Autowire : TRUE** This service can be autowired into your services. 
+* **Class :** eXpansion\Framework\AdminGroups\Helpers\Translations
+
 This service will help fetching translations. The Symfony translator service is built to deliver translations for a website, 
 which means the format might not exactly bee what is needed. The helper will help with that.
 

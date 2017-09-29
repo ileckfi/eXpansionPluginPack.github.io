@@ -4,11 +4,13 @@ layout: docs
 
 # The Event System
 
-**Data Providers are a different way to create a controller.** 
+**Data Providers are a different way to create a controller...** 
 
-eXpansion<sup>2</sup> event system differs from previous controller design where dedicated server event gets routed directly to plugin method.
+eXpansion<sup>2</sup> event system differs from previous controller design where dedicated 
+server event gets routed directly to plugin method.
+
 The idea is to separate dedicated and game mode script events from directly passing to plugin.
-This way it's possible to route and re-organize events and even adapt the controller easier: 
+This way it's possible to route and re-organize events and even adapt the controller: 
  1. different scripted game modes  
  2. possible future game api changes
    
@@ -19,9 +21,11 @@ The diagram shows how event data flows from dedicated to plugin.
 1. Script Mode or Dedicated server sends event.
 2. Dedicated server api receives the event.
 3. Multiple DataProviders are set to work in certain conditions.
-    - at begin of a map eXpansion<sup>2</sup> checks which data provider is most best suited for the current situation and starts it. 
+    - at begin of a map eXpansion<sup>2</sup> checks which data provider is most best suited for the current 
+    situation and starts those. 
 4. The Selected DataProvider sends it's abstracted event to Records plugin
-5. Records plugin can work as a new data provider which seeds other plugins who request the data upon.
+5. Records plugin doesen't need to tale into consideration changes coming from various scripts
+6. Records plugin can work as a new data provider which seeds data to other plugins who requested the data.
 6. Next plugins process the records plugin data, and show different things...
     1. a chat message plugin, which shows the new record at game chat.
     2. records widget, which draws hud element to the screen
@@ -57,16 +61,24 @@ In our example the PlayerDataProvider provides information onPlayerConnect and o
 When choosing data provider, expansion will use the most suitable data provider - not the first one that is compatible.
 
 Let's say we have a `Records plugin` which depends on `TimeDataProvider` compatible with `TM` script modes.
-It works nicely for build-in modes, but some custom script mode like `acme.script.txt` we notice that the provider does not work well. 
+It works nicely for build-in modes, but in some custom script mode like `acme.script.txt` 
+we notice that the provider does not work well. 
 
-To make our plugin work well again, it's now possible to create another `TimeDataProvider` which is set to be compatible with `acme.script.txt` only. 
-The new data provider has more specific information on what callbacks the script has and it will be chosen instead of the more generic one. 
+To make our plugin work well again, it's now possible to create another `TimeDataProvider` which is set 
+to be compatible with `acme.script.txt` only. 
+The new data provider has more specific information on what callbacks the script has and it will be 
+chosen instead of the more generic one. This will allow the Records plugin to work without any effect.
 
 What happens if controller is started on Storm ?
 
 Well the LocalRecords plugin gets disabled, since there's no `TimeDataProvider` available for Storm titles.
-Any developer can though easily make local records and widget and other dependent plugins to work, by implementing `TimeDataProvider` for Storm or other custom game mode. 
-Once this is created the `LocalRecordsPlugin` will be enabled, and so the `LocalRecordsDataProvider` will enable as well, which in it's turn will enable `LocalRecrodsWidget`. 
+Any developer can though easily make local records and widget and other dependent plugins to work, 
+by implementing `TimeDataProvider` for Storm or other custom game mode. 
+Once this is created the `LocalRecordsPlugin` will be enabled as a compatible `TimeDataProvider` is found. 
+So the `LocalRecordsDataProvider` will enable as well, which in it's turn will enable `LocalRecrodsWidget`. 
+
+So the devleoppment of a simple DataProvider will reconect and render compatible whole features that was never meant to
+work on Storm.
 
 Data providers can also be used to send game mode dependent "configuration" data to plugins. For example widget positions. 
 
@@ -156,9 +168,11 @@ services:
 
 ## Dispatching a custom event
 
-As said, data provider might depend upon a another plugin. When this happens it means that the plugin is dispatching events that needs to be normalized.
+As said, data provider might depend upon a another plugin. When this happens it means that the plugin is dispatching 
+events that needs to be normalized.
 
-To dispatch events you need the eXpansion dispatcher service `expansion.service.dispatcher`
+To dispatch events you need the eXpansion dispatcher 
+service `eXpansion\Framework\Core\Services\Application\DispatcherInterface` that can be autowired.
 
 Then use the dispatcher function: 
 

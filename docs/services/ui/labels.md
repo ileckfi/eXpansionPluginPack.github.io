@@ -4,6 +4,9 @@ layout: docs
 
 ## Labels & Translations
 
+* **Autowire : TRUE** This service can be autowired into your services. 
+* **Class :** eXpansion\Framework\Core\Model\Gui\Factory\LabelFactory
+
 As Expected eXpansion supports translation strings in labels. 
 You never need to actually bother for translations if you create properly your labels eXpansion will take care of it.
 

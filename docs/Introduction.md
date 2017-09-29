@@ -12,11 +12,12 @@ We are going to try and keep the documentation clean & up-to-date for you guys t
 ...I mean Awesome Bundles! eXpansion<sup>2</sup> is based on the [Symfony!](https://symfony.com/) framework and uses steeffeen's [Fancy Manialink's](https://github.com/steeffeen/FancyManiaLinks) to handle UI knows as manialinks. 
  
 If you are not yet familiar with sympfony components, please take a good look to the following concepts:
-* [Dependency Injection](http://symfony.com/doc/current/components/dependency_injection.html)
-* [Translations](http://symfony.com/doc/current/components/translation.html)
-* [Console](http://symfony.com/doc/current/components/console.html)
+* [Dependency Injection](http://symfony.com/doc/3.3/components/dependency_injection.html)
+* [Translations](http://symfony.com/doc/3.3/components/translation.html)
+* [Console](http://symfony.com/doc/3.3/components/console.html)
 
 This documentation is separated in 3 parts:
-1. The first part we will see how a eXpansion bundles work. It's very similar to symfony but we a few changes on how game events are dispatched. 
+1. The first part we will see how a eXpansion bundles work. 
+It's very similar to symfony but we a few changes on how game events are dispatched. 
 2. In the second part the documentation will elaborate on various services you might need to use to create a bundle. 
 3. And finally the last "cookbook" part will give examples in order to explain exactly how to do things.

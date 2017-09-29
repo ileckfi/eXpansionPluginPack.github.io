@@ -14,7 +14,7 @@ List of Requirements to use eXpansion2 on your servers.
 
 | **Requirements** | **Version**      | 
 |------------------|------------------|
-| PHP              | 5.6 minimum      |
+| PHP              | 7.0 minimum      |
 | Database         | Mysql/Sqlite/... |
 | Composer         | 1.4 minimum      |
 | Git              | 2.11 minimum     |
