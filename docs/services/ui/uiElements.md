@@ -4,13 +4,13 @@ layout: docs
 
 ## UI Elements 
 
-* **Autowire : TRUE** This service can be autowired into your services. 
-* **Class :** eXpansion\Framework\Gui\Ui\Factory
+* **Autowire: TRUE** This service can be autowired into your services. 
+* **Class:** eXpansion\Framework\Gui\Ui\Factory
 
 eXpansion<sup>2</sup> has some custom FML elements written to help you build your ui.
 These are accessible through a factory. The idea is to normalize the display in all the manialinks of the controller.
 
-All Widget & Windows factories has the UI Factory pre injected in them. The factory can be used with :
+All Widget & Windows factories has the UI Factory pre injected in them. The factory can be used with:
 ```php
 <?php
 $this->uiFactory->createSomething($argument1, $argument2, ...);
@@ -76,7 +76,11 @@ methods:
 
 ### uiCheckbox
 
-usage:
+Creates checkbox. 
+To receive values, you need to add button with callback.
+
+
+example:
 ```php
 <?php
 namespace mybundle\example\plugins\example;
@@ -141,7 +145,7 @@ Create password field with a button to toggle masked/normal contents.
 usage 
 ```php
 <?php
-$input = $this->uiFactory->createInput("name", "", 60);
+$input = $this->uiFactory->createInputMasked("name", "", 60);
 $manialink->addChild($input);
 
 ```
@@ -149,10 +153,6 @@ $manialink->addChild($input);
 1. name for entry to return 
 2. default value
 3. width
-4. type
-
-Types:
-`uiInput:TYPE_BASIC`, `uiInput::TYPE_PASSWORD`
 
 ### uiTextBox
 
@@ -262,7 +262,7 @@ class myWindowFactory {
 ### uiGridLine
 
 A grid line is basically a line with labels & a background behind it. 
-GridLines have fixed width and will redimension elements of a line in order to fit them.
+GridLines have fixed width and will re-dimension elements of a line in order to fit them.
 
 ```php
 <?php
@@ -276,7 +276,8 @@ class myWindowFactory {
             100, /* Width */
             [
                 'width' => 10, /* Width coefficiency */
-                'text' => 'Hello', /* Text to display */ 'renderer' => new Quad_Icons64x64_1(), /* Or display a FML element */
+                'text' => 'Hello', /* Text to display */ 
+                'renderer' => new Quad_Icons64x64_1(), /* Or display a FML element */
                 'action' => $this->actionFactory->create(), /* Optional : Action to execute on click */
                 'translatable' => true /* If text, should it be translated */
             ] /* Width */
@@ -292,12 +293,52 @@ class myWindowFactory {
 
 ### uiAnimation
 
-TODO: write example 
+You can easily add animations to FML elements that implements class of **\FML\Controls\Control**, only label of uiElements is currently supported.
+Frames, Quads and Labels are good to animate.
+
+```php
+<?php
+    // create animation helper
+    $animation= $this->uiFactory->createAnimation();
+    $manialink->addChild($animation);
+    
+    $label = $this->uiFactory->createLabel("test");
+    $label->setOpacity(0);
+    
+    $animation->addAnimation($label, "opacity='1'", 1000, 0, "Linear");
+    $manialink->addChild($label);
+    
+```
+
+addAnimation(control, animations, length, delay, easing)
+1. Control for animation to be added
+2. animation properties, you can automate xml properties of the control:
+   normally opacity, scale and pos,  
+3. animation length in milliseconds
+4. animation delay in milliseconds
+5. easing function, string or const
+
+Valid easings are defined as const for uiAnimation, you can use also string.
+You can preview easing functions at [www.easings.net](http://easings.net).
+
+| Easing      | Supported types |
+| ----------- | ----------- |
+| Linear        |`Linear`  |
+| Quad          |`QuadIn`,`QuadOut`,`QuadInOut`|
+| Cubic         |`CubicIn`,`CubicOut`,`CubicInOut`|
+| Quart         |`QuartIn`,`QuartOut`,`QuartInOut`|
+| Quint         |`QuintIn`,`QuintOut`, `QuintInOut`|
+| Sine          |`SineIn`,`SineOut`,`SineInOut`|
+| Exp           |`ExpIn`,`ExpOut`,`ExpInOut`|
+| Circ          |`CircIn`,`CircOut`,`CircInOut`|
+| Back          |`BackIn`,`BackOut`,`BackInOut`|
+| Elastic       |`ElasticIn`,`ElasticOut`,`ElasticInOut`<br>`Elastic2In`,`Elastic2Out`,`Elastic2InOut`|
+| Bounce        |`BounceIn`,`BounceOut`,`BounceInOut`|
 
 ### uiTooltip
 
-You can easily add tooltips to **any** FML or uiElements.
-Just add tooltip to manialink, and then use `$tooltip->createTooltip($element, $text)` to add tooltips.
+You can easily add tooltips to any FML or uiElements.
+
 
 ```php
 <?php
@@ -305,10 +346,17 @@ Just add tooltip to manialink, and then use `$tooltip->createTooltip($element, $
     $tooltip = $this->uiFactory->createTooltip();
     $manialink->addChild($tooltip);
    
-    $apply = $this->uiFactory->createButton("Apply", uiButton::TYPE_DECORATED);
-    $tooltip->addTooltip($apply, "Will apply changes");   
+    $btn = $this->uiFactory->createButton("Apply", uiButton::TYPE_DECORATED);
+    $tooltip->addTooltip($btn, "Tooltip example 1");   
+    
+    $btn = $this->uiFactory->createButton("Cancel", uiButton::TYPE_DECORATED);
+    $tooltip->addTooltip($btn, "Tooltip example 2");
 ```
 
+parameters:
+
+1. uiElement or FML control
+2. tooltip text
 
 
 ## Layout builders
@@ -377,10 +425,30 @@ class myWindowFactory {
 
 ### layoutScrollable
 
-Creates a scrollable area
+Creates a scrollable area.
 
-TODO: write usage
+```php
+<?php
+    
+    $content = $this->uiFactory->createLayoutRow(55, 0, [], 1);
+    
+    for ($x = 0; $x < 10; $x++) {
+        $btn = $this->uiFactory->createCheckbox('box'.$x, 'cb_'.$x);
+        $tooltip->addTooltip($btn, "long description that should go over the bounding box".$x);
+        $content->addChild($btn);
+    }
+    
+    $scrollable = new layoutScrollable($content, 40, 30);
+    $scrollable->setAxis(true, true);
+    $manialink->addChild($scrollable);
+        
+```
 
+parameters:
+
+1. frame or uiLayout
+2. width
+3. heigth
 
 ## Complex example
 
