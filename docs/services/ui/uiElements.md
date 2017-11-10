@@ -13,7 +13,7 @@ These are accessible through a factory. The idea is to normalize the display in 
 All Widget & Windows factories has the UI Factory pre injected in them. The factory can be used with :
 ```php
 <?php
-$this->uiFactory->createSomething($argument1, $argument2);
+$this->uiFactory->createSomething($argument1, $argument2, ...);
 ```
 
 The idea of using a factory service is that this allows any bundle developer to override our elements to completely 
@@ -43,6 +43,8 @@ type can be: `uiLabel::TYPE_NORMAL`, `uiLabel::TYPE_TITLE`, `uiLabel::TYPE_HEADE
 
 ### uiButton
 
+Create easily clickable buttons.
+
 usage:
 ```php
 <?php
@@ -52,17 +54,24 @@ class myWindowFactory {
     
     protected function createContent(ManialinkInterface $manialink)
     {    
-        $button = $this->uiFactory->createButton('text', 'type');
-        $button->setPosition(0,0);
+        $button = $this->uiFactory->createButton('apply', uiButton::TYPE_DECORATED);
+        $button->setAction(
+            $this->actionFactory->createManialinkAction($manialink, [$this, "callbackApply"],[])
+            );
         $manialink->addChild($button);
     }
 }
 ?>
 ```
+Parameters:
+
+1. button label
+2. type
+
 types:
 `uiButton::TYPE_DEFAULT`, `uiButton::TYPE_DECORATED`
 
-additional methods are:
+methods:
 `setText('string)`, `setTextColor('rrggbbbaa')`,`setBackgroundColor('rrggbbbaa')`, `setFocusColor()`, `setBorderColor()`, `setAction()`
 
 ### uiCheckbox
@@ -102,6 +111,66 @@ class myWindowFactory {
 ```
 
 > uiCheckbox returns $parameters: key as name and value of string "0" or "1"
+
+
+### uiInput
+
+Create input fields. You can have password field masked by ****** changing the type to `uiInput::TYPE_PASSWORD`   
+
+usage 
+```php
+<?php
+$input = $this->uiFactory->createInput("name", "", 60, uiInput::TYPE_BASIC);
+$manialink->addChild($input);
+
+```
+
+1. name for entry to return 
+2. default value
+3. width
+4. type
+
+Types:
+`uiInput:TYPE_BASIC`, `uiInput::TYPE_PASSWORD`
+
+
+### uiInputMasked
+
+Create password field with a button to toggle masked/normal contents.
+
+usage 
+```php
+<?php
+$input = $this->uiFactory->createInput("name", "", 60);
+$manialink->addChild($input);
+
+```
+
+1. name for entry to return 
+2. default value
+3. width
+4. type
+
+Types:
+`uiInput:TYPE_BASIC`, `uiInput::TYPE_PASSWORD`
+
+### uiTextBox
+
+Create multiline input field  
+
+usage 
+```php
+<?php
+$textbox = $this->uiFactory->createTextbox("name", "", 3,60);
+$manialink->addChild($textbox);
+
+```
+
+1. name for entry to return 
+2. default value
+3. lines
+4. width
+
 
 ### uiDropdown
 
@@ -218,6 +287,30 @@ class myWindowFactory {
 ?>
 ```
 
+
+## UI Helpers
+
+### uiAnimation
+
+TODO: write example 
+
+### uiTooltip
+
+You can easily add tooltips to **any** FML or uiElements.
+Just add tooltip to manialink, and then use `$tooltip->createTooltip($element, $text)` to add tooltips.
+
+```php
+<?php
+    // create tooltip helper
+    $tooltip = $this->uiFactory->createTooltip();
+    $manialink->addChild($tooltip);
+   
+    $apply = $this->uiFactory->createButton("Apply", uiButton::TYPE_DECORATED);
+    $tooltip->addTooltip($apply, "Will apply changes");   
+```
+
+
+
 ## Layout builders
 
 Layout builders are helper classes to position elements more easily! Layouts can take any Renderable 
@@ -282,7 +375,14 @@ class myWindowFactory {
 ?>
 ```
 
-### Complex example with rows and lines...
+### layoutScrollable
+
+Creates a scrollable area
+
+TODO: write usage
+
+
+## Complex example
 
 ```php
 <?php
@@ -299,14 +399,14 @@ class myWindowFactory {
        $line1 = $this->uiFactory->createLayoutRow(0, 0, [$checkbox, $checkbox2], 0);   // sum the two ui components to a line
 
        $ok = $this->uiFactory->createButton("Apply", uiButton::TYPE_DECORATED);
-       $ok->setAction($this->actionFactory->createManialinkAction($manialink, [$this, 'ok'], ["ok" => "ok"]));
+       $ok->setAction($this->actionFactory->createManialinkAction($manialink, [$this, 'callbackButton'], ["type" => "ok"]));
 
        $cancel = $this->uiFactory->createButton("Cancel");
-       $cancel->setAction($this->actionFactory->createManialinkAction($manialink, [$this, 'ok'], ["ok" => "cancel"]));
+       $cancel->setAction($this->actionFactory->createManialinkAction($manialink, [$this, 'callbackButton'], ["type" => "cancel"]));
        $line2 = $this->uiFactory->createLayoutLine(0, 0, [$ok, $cancel], 1); // sum the two ui components to second line 
        
-
        $row = $this->uiFactory->createLayoutRow(0, -10, [$line1, $line2], 0);  // make two rows of the lines
+       
        $manialink->addChild($row);     
         
     }
