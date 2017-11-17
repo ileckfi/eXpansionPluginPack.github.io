@@ -177,7 +177,9 @@ service `eXpansion\Framework\Core\Services\Application\DispatcherInterface` that
 Then use the dispatcher function: 
 
 ```php
+<?php
 $dispatcher->dispatch('my_name.acme.super_event', [$var1, $var2]);
+?>
 ```
 
 
@@ -188,13 +190,40 @@ that you will probably won't need. You can always contact us if you wish to know
 
 ### Generic Providers
 
-@todo 
-Generate list here
+| Dataprovider              | Interface Class  | Dedicated Callback | Callbacks Methods |
+| ------------------------- | -----------      | ---------------    | ------  | 
+| exp.application           | ListenerInterfaceExpApplication |  |onApplicationInit<br> onApplicationReady<br> onApplicationStop|
+| exp.timer                 | ListenerInterfaceExpTimer | | onEverySecond<br> onPreloop<br> onPostloop |
+| expansion.user_group      | ListenerInterfaceExpUserGroup | |  onExpansionGroupAddUser<br> onExpansionGroupRemoveUser<br> onExpansionGroupDestroy| 
+
+
+### Maniaplanet Legacy Callbacks
+
+| Dataprovider              | Interface Class  | Dedicated Callback | Callbacks Methods |
+| ---- | --- |--- |--- |
+| mp.legacy.chat            | ListenerInterfaceMpLegacyChat | *.PlayerChat | onPlayerChat |
+| mp.legacy.player          | ListenerInterfaceMpLegacyPlayer | *.PlayerConnect<br> *.PlayerDisconnect<br> *.PlayerInfoChanged<br> *.PlayerAlliesChanged | onPlayerConnect<br> onPlayerDisconnect<br> onPlayerInfoChanged<br> onPlayerAlliesChanged |
+| mp.legacy.maplist         | ListenerInterfaceMpLegacyMaplist | *.MapListModified | onMapListModified |
+| mp.legacy.map             | ListenerInterfaceMpLegacyMap| *.BeginMap<br> *.EndMap | onBeginMap<br> onEndMap |
+| mp.legacy.manialink       | ListenerInterfaceMpLegacyManialink | *.PlayerManialinkPageAnswer | onPlayerManialinkPageAnswer |
+| mp.legacy.script          | ListenerInterfaceMpLegacyScript | *.ModeScriptCallbackArray | onModeScriptCallbackArray |
+
+ ### Maniaplanet Script Callbacks
+ 
+ | Dataprovider              | Interface Class  | Dedicated Callback | Callbacks Methods |
+ | ---- | --- |--- |--- |
+ |mp.script.map             |ListenerInterfaceMpScriptMap | Maniaplanet.StartMap_Start<br>Maniaplanet.StartMap_End<br> Maniaplanet.EndMap_Start<br> Maniaplanet.EndMap_End |onStartMapStart<br> onStartMapEnd<br> onEndMapStart<br> onEndMapEnd |
+ |mp.script.match           |ListenerInterfaceMpScriptMatch |  Maniaplanet.StartMatch_Start<br> Maniaplanet.StartMatch_End<br> EndMatch_Start<br> EndMatch_End<br> StartTurn_Start<br> StartTurn_End<br>EndTurn_Start<br>EndTurn_End<br>StartRound_Start<br>StartRound_End<br> EndRound_Start<br>EndRound_End| onStartMatchStart<br> onStartMatchEnd.... etc...|
+ |mp.script.podium          |ListenerInterfaceMPScriptPodium| Maniaplanet.Podium_Start<br>Maniaplanet.Podium_End | onPodiumStart<br>onPodiumEnd |
+ 
  
 ### TM Data Providers
 
-@todo 
-Generate list here
+ | Dataprovider              | Interface Class  | Dedicated Callback | Callbacks Methods |
+ | ---- | --- |--- |--- |
+ |tm.script.race            |ListenerInterfaceTmScriptRace | Trackmania.OnWayPoint |onStartMapStart<br> onStartMapEnd<br> onEndMapStart<br> onEndMapEnd |
+ |tm.script.match           |ListenerInterfaceMpScriptMatch |  Maniaplanet.StartMatch_Start<br> Maniaplanet.StartMatch_End<br> EndMatch_Start<br> EndMatch_End<br> StartTurn_Start<br> StartTurn_End<br>EndTurn_Start<br>EndTurn_End<br>StartRound_Start<br>StartRound_End<br> EndRound_Start<br>EndRound_End| onStartMatchStart<br> onStartMatchEnd.... etc...|
+ |tp.script.podium          |ListenerInterfaceMpScriptPodium| Maniaplanet.Podium_Start<br>Maniaplanet.Podium_End | onPlayerWayPoint<br>onPlayerEndRace<br>onPlayerEndLap |
 
 
 ### SM Data Providers
