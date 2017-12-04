@@ -2,7 +2,7 @@
 layout: docs
 ---
 
-## Helper : Chat Notification
+## Helper : File System
 
 * **Autowire : TRUE** This service can be autowired into your services. 
 * **Class :** eXpansion\Framework\Core\Helpers\FileSystem

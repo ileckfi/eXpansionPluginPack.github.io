@@ -61,6 +61,7 @@ parameters:
 | | | 
 | **dedicated_connection_type** | local if the dedicated is on the same machine as eXpansion. remote if not |
 |                               | See section below if you configured it as **remote** | 
+
 ### Local / Remote dedicated. 
 
 If the dedicated server & eXpansion are installed on the same server eXpansion can detect the path to the 
