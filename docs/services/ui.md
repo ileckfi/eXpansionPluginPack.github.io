@@ -6,8 +6,8 @@ layout: docs
 
 ManiaPlanet uses UI technology named ManiaLink which is build on XML. 
 
-In eXpansion<sup>2</sup> we use FancyManiaLinks which is set of PHP classes to build XML, 
-so we don't need to use xml templates and partials.
+In eXpansion<sup>2</sup> we use [FancyManiaLinks](https://github.com/steeffeen/FancyManiaLink) by **steeffeen** which 
+is set of PHP classes to build XML,  so we don't need to use xml templates and partials.
 This allows us to do some really cool stuff, like add script partials to main script file, when you use a 
 prebuild element. Also where we use this feature is to automatically generate translations for UI labels.
      
@@ -15,10 +15,8 @@ Creating user interfaces in eXpansion<sup>2</sup>.
 
 1. **The Plugin** Will hold the logic when to display/update the manialink, 
     in case of windows this can be a chat command, for widgets it can be on MapBegin event. 
-2. **The Manialink Factory** Will create the manialink UI & it's content and also handle most of logic f
-    or example when user clicks a button and the event needs to travel back to backend. 
-
-### Directory structure and conventions
+2. **The Manialink Factory** Will create the manialink UI & it's content and also handle most of logic 
+    for example when user clicks a button and the event needs to travel back to backend. 
 
 ### Creating new manialink
 
@@ -27,10 +25,11 @@ Core GUI Factories provides you currently 2 types of UI builders to extend with.
 1. WindowFactory
 2. WidgetFactory
 
-Widget are rendered to be a static and borderless, without any extra elements while
-Window will be movable, framed and with closing possibility.  
+`Widget` are rendered to be a static and borderless, without any extra elements while
+`Window` will be movable, framed and with closing possibility. Those behaviours can be extended by other bundles. 
+But the core works this way.
 
-But on both classes we will only need to implement the abstract 2 methods. 
+But on both classes we will only need to implement the 2 abstract methods. 
 
 ```php
 protected function createContent(Manialink $manialink) { }
@@ -41,7 +40,7 @@ protected function updateContent(Manialink $manialink) { }
 > Note: With eXpansion<sup>2</sup> when a player disconnect you don't need to destroy the manialink manually,
  the core will take care of it!
 
-When your Manialink is displayed for the first time, both of the functions are called respectably.
+When your Manialink is displayed for the first time, both of the functions are called.
 And when UI update is needed, well you guessed right, only `updateContent` gets called.
 
 #### Creating a Widget 
@@ -56,14 +55,12 @@ And when UI update is needed, well you guessed right, only `updateContent` gets 
             $sizeY: 90  # Height of the ML
             $posX:  null # Position X, if null it will center it
             $posY:  null # Position Y, if null it will center it
-        tags:
-            - {name: expansion.plugin, data_provider: expansion.user_group} # All windows needs to be tagged
 ```
 
-The other arguments the factory needs are provided thanks to the autowiring ability of SF3.3.
+The other arguments the factory needs are provided thanks to the autowiring ability of Symfony
 
-If you need any other service in your class, you can extend the construct. 
-Either those are autowired or need to be set manually
+If you need any other service in your class, you can extend the construct, either those are autowired 
+or need to be set manually. Refer to the symfony dependency injection docs for more information.
 
 #### Creating the ML Window service. 
 
@@ -81,12 +78,18 @@ you will need to write
 class MyWidgetFactory extends WindowFactory
 ``` 
 
-autowiring will then handle the rest.
+The service declaration is then identical thansk to autowiring.
 
 
 #### Displaying updating the ML. 
 
 Now that our service is created, we will simply inject it in the plugin that will handle the display. 
+
+```php
+<?php
+public function __construct(MyWidgetFactory $myWidgetFactory) {
+}
+```
 
 Once this is done we can very simply use the fallowing methods : 
 
@@ -95,16 +98,20 @@ Once this is done we can very simply use the fallowing methods :
 $userGroup = $this->mlfactory->create();
 ```
 
-The create function either takes in parameter a `login` or a user group. In case of a user group you don't need to handle players connecting & disconnecting from the user group. When a player is added to a group or removed from one his manialinks will be automatically updated. 
+The create function either takes in parameter a `login` or a user group. In case of a user group you don't need
+to handle players connecting & disconnecting from the user group. 
+When a player is added to a group or removed from one, his manialinks will be automatically updated. 
 
-We can also update the content of a manialink : 
+We can also update the content of a manialink with the update function: 
 
 ```php
 <?php
 $this->mlfactory->update($userGroup);
 ```
 
-Or destroy it.
+Again using groups is a good idea, particularly for widgets.
+
+Finally we can destroy it.
 
 ```php
 <?php
@@ -132,20 +139,21 @@ $manialink->setData('my_variable', '...');
 $manialink->getData('my_variable');
 ```
 
-This way you are sure that when the manialink is destroyed so are those variables. 
+This way you are sure that when the manialink is destroyed so are those variables. And diminish the possibility of 
+creating a memory leak.
 
 ## Complete Exemple
 
 ### The plugin
 
-Here is an exemple showing a widget to all players : 
+Here is an example showing a widget to all players : 
 
-#### Service decleration
+#### Service declaration
 
 ```yaml
     eXpansion\Bundle\Menu\Plugins\Menu:
         class: eXpansion\Bundle\Menu\Plugins\Menu
-        autowire:
+        autowire: true
         tags:
             - {name: expansion.plugin, data_provider: expansion.match_data}
 ```
@@ -223,8 +231,6 @@ class Menu implements StatusAwarePluginInterface, MatchDataListenerInterface
             $posY:  null
             # This can't be autowired as we use same class for multiple services with different params.
             $menuScriptFactory: '@expansion.framework.core.gui.scripts.menu' 
-        tags:
-            - {name: 'expansion.plugin', data_provider: 'expansion.user_group'}
 ```
 
 #### The service class

@@ -6,8 +6,6 @@ layout: docs
 
 You should first install docker
 
-
-
 The easiest way to install eXpansion using docker is to use a docker-compose file. 
 
 For this installation we are going to use 3 images : 
@@ -64,7 +62,7 @@ the `MP_LOGIN` and `MP_PASSWORD` section.
 
 Finally we can configure our eXpansion image. 
 
-```yml
+```yaml
 expansion:
     image: docker/mp-expansion
     links:
@@ -74,8 +72,7 @@ expansion:
         - ./data/expansion/app:/var/expansion/app
         - ./data/expansion/composer.json:/var/expansion/composer.json
         # We also share the user data from the dedicated so that eXpansion can read & write in the files
-        - ./data/UserData/Maps:/var/maniaplanet/UserData/Maps
-        - ./data/UserData/Config:/var/maniaplanet/UserData/Config
+        - ./data/UserData:/var/maniaplanet/UserData
 ```
 
 Our volumes will allow us to configure expansion, but as it is everything is configured to work already. 
@@ -139,8 +136,5 @@ And to stop them
 docker-compose stop
 ```
 
-## Todo on our side
-
-eXpansion as it is today detects the dedicated as remote, this is true but the expansion docker still 
-has access to the dedicated files. We need to add options to allow eXpansion to understand that the 
-dedicated files can be accessed at /var/maniaplanet/UserData
+> Thanks to the way we share UserData directory eXpansion can handle the dedicated server 
+as well as if it was installed locally.
