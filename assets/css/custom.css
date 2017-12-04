@@ -5,15 +5,19 @@ a.exp-active::before {
 }
 
 .uk-nav-default .uk-nav-sub a.exp-active,
-.uk-nav-default>li>a.exp-active {
+.uk-nav-default > li > a.exp-active {
     color: #000;
 }
 
 #header {
-	z-index: 10000;
-	border-bottom: 2px solid rgb(0, 140, 250);	
+    z-index: 10000;
+    border-bottom: 2px solid rgb(0, 140, 250);
 }
 
 body {
-	background: #ddd;
+    background: #ddd;
+}
+
+.smallpadding {
+    padding: 0 1em;
 }

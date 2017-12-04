@@ -4,16 +4,16 @@ layout: docs
 
 ## UI Elements 
 
-* **Autowire : TRUE** This service can be autowired into your services. 
-* **Class :** eXpansion\Framework\Gui\Ui\Factory
+* **Autowire: TRUE** This service can be autowired into your services. 
+* **Class:** eXpansion\Framework\Gui\Ui\Factory
 
 eXpansion<sup>2</sup> has some custom FML elements written to help you build your ui.
 These are accessible through a factory. The idea is to normalize the display in all the manialinks of the controller.
 
-All Widget & Windows factories has the UI Factory pre injected in them. The factory can be used with :
+All Widget & Windows factories has the UI Factory pre injected in them. The factory can be used with:
 ```php
 <?php
-$this->uiFactory->createSomething($argument1, $argument2);
+$this->uiFactory->createSomething($argument1, $argument2, ...);
 ```
 
 The idea of using a factory service is that this allows any bundle developer to override our elements to completely 
@@ -43,6 +43,8 @@ type can be: `uiLabel::TYPE_NORMAL`, `uiLabel::TYPE_TITLE`, `uiLabel::TYPE_HEADE
 
 ### uiButton
 
+Create easily clickable buttons.
+
 usage:
 ```php
 <?php
@@ -52,22 +54,33 @@ class myWindowFactory {
     
     protected function createContent(ManialinkInterface $manialink)
     {    
-        $button = $this->uiFactory->createButton('text', 'type');
-        $button->setPosition(0,0);
+        $button = $this->uiFactory->createButton('apply', uiButton::TYPE_DECORATED);
+        $button->setAction(
+            $this->actionFactory->createManialinkAction($manialink, [$this, "callbackApply"],[])
+            );
         $manialink->addChild($button);
     }
 }
 ?>
 ```
+Parameters:
+
+1. button label
+2. type
+
 types:
 `uiButton::TYPE_DEFAULT`, `uiButton::TYPE_DECORATED`
 
-additional methods are:
+methods:
 `setText('string)`, `setTextColor('rrggbbbaa')`,`setBackgroundColor('rrggbbbaa')`, `setFocusColor()`, `setBorderColor()`, `setAction()`
 
 ### uiCheckbox
 
-usage:
+Creates checkbox. 
+To receive values, you need to add button with callback.
+
+
+example:
 ```php
 <?php
 namespace mybundle\example\plugins\example;
@@ -102,6 +115,62 @@ class myWindowFactory {
 ```
 
 > uiCheckbox returns $parameters: key as name and value of string "0" or "1"
+
+
+### uiInput
+
+Create input fields. You can have password field masked by ****** changing the type to `uiInput::TYPE_PASSWORD`   
+
+usage 
+```php
+<?php
+$input = $this->uiFactory->createInput("name", "", 60, uiInput::TYPE_BASIC);
+$manialink->addChild($input);
+
+```
+
+1. name for entry to return 
+2. default value
+3. width
+4. type
+
+Types:
+`uiInput:TYPE_BASIC`, `uiInput::TYPE_PASSWORD`
+
+
+### uiInputMasked
+
+Create password field with a button to toggle masked/normal contents.
+
+usage 
+```php
+<?php
+$input = $this->uiFactory->createInputMasked("name", "", 60);
+$manialink->addChild($input);
+
+```
+
+1. name for entry to return 
+2. default value
+3. width
+
+### uiTextBox
+
+Create multiline input field  
+
+usage 
+```php
+<?php
+$textbox = $this->uiFactory->createTextbox("name", "", 3,60);
+$manialink->addChild($textbox);
+
+```
+
+1. name for entry to return 
+2. default value
+3. lines
+4. width
+
 
 ### uiDropdown
 
@@ -193,7 +262,7 @@ class myWindowFactory {
 ### uiGridLine
 
 A grid line is basically a line with labels & a background behind it. 
-GridLines have fixed width and will redimension elements of a line in order to fit them.
+GridLines have fixed width and will re-dimension elements of a line in order to fit them.
 
 ```php
 <?php
@@ -207,7 +276,8 @@ class myWindowFactory {
             100, /* Width */
             [
                 'width' => 10, /* Width coefficiency */
-                'text' => 'Hello', /* Text to display */ 'renderer' => new Quad_Icons64x64_1(), /* Or display a FML element */
+                'text' => 'Hello', /* Text to display */ 
+                'renderer' => new Quad_Icons64x64_1(), /* Or display a FML element */
                 'action' => $this->actionFactory->create(), /* Optional : Action to execute on click */
                 'translatable' => true /* If text, should it be translated */
             ] /* Width */
@@ -217,6 +287,77 @@ class myWindowFactory {
 }
 ?>
 ```
+
+
+## UI Helpers
+
+### uiAnimation
+
+You can easily add animations to FML elements that implements class of **\FML\Controls\Control**, only label of uiElements is currently supported.
+Frames, Quads and Labels are good to animate.
+
+```php
+<?php
+    // create animation helper
+    $animation= $this->uiFactory->createAnimation();
+    $manialink->addChild($animation);
+    
+    $label = $this->uiFactory->createLabel("test");
+    $label->setOpacity(0);
+    
+    $animation->addAnimation($label, "opacity='1'", 1000, 0, "Linear");
+    $manialink->addChild($label);
+    
+```
+
+addAnimation(control, animations, length, delay, easing)
+1. Control for animation to be added
+2. animation properties, you can automate xml properties of the control:
+   normally opacity, scale and pos,  
+3. animation length in milliseconds
+4. animation delay in milliseconds
+5. easing function, string or const
+
+Valid easings are defined as const for uiAnimation, you can use also string.
+You can preview easing functions at [www.easings.net](http://easings.net).
+
+| Easing      | Supported types |
+| ----------- | ----------- |
+| Linear        |`Linear`  |
+| Quad          |`QuadIn`,`QuadOut`,`QuadInOut`|
+| Cubic         |`CubicIn`,`CubicOut`,`CubicInOut`|
+| Quart         |`QuartIn`,`QuartOut`,`QuartInOut`|
+| Quint         |`QuintIn`,`QuintOut`, `QuintInOut`|
+| Sine          |`SineIn`,`SineOut`,`SineInOut`|
+| Exp           |`ExpIn`,`ExpOut`,`ExpInOut`|
+| Circ          |`CircIn`,`CircOut`,`CircInOut`|
+| Back          |`BackIn`,`BackOut`,`BackInOut`|
+| Elastic       |`ElasticIn`,`ElasticOut`,`ElasticInOut`<br>`Elastic2In`,`Elastic2Out`,`Elastic2InOut`|
+| Bounce        |`BounceIn`,`BounceOut`,`BounceInOut`|
+
+### uiTooltip
+
+You can easily add tooltips to any FML or uiElements.
+
+
+```php
+<?php
+    // create tooltip helper
+    $tooltip = $this->uiFactory->createTooltip();
+    $manialink->addChild($tooltip);
+   
+    $btn = $this->uiFactory->createButton("Apply", uiButton::TYPE_DECORATED);
+    $tooltip->addTooltip($btn, "Tooltip example 1");   
+    
+    $btn = $this->uiFactory->createButton("Cancel", uiButton::TYPE_DECORATED);
+    $tooltip->addTooltip($btn, "Tooltip example 2");
+```
+
+parameters:
+
+1. uiElement or FML control
+2. tooltip text
+
 
 ## Layout builders
 
@@ -282,7 +423,34 @@ class myWindowFactory {
 ?>
 ```
 
-### Complex example with rows and lines...
+### layoutScrollable
+
+Creates a scrollable area.
+
+```php
+<?php
+    
+    $content = $this->uiFactory->createLayoutRow(55, 0, [], 1);
+    
+    for ($x = 0; $x < 10; $x++) {
+        $btn = $this->uiFactory->createCheckbox('box'.$x, 'cb_'.$x);
+        $tooltip->addTooltip($btn, "long description that should go over the bounding box".$x);
+        $content->addChild($btn);
+    }
+    
+    $scrollable = new layoutScrollable($content, 40, 30);
+    $scrollable->setAxis(true, true);
+    $manialink->addChild($scrollable);
+        
+```
+
+parameters:
+
+1. frame or uiLayout
+2. width
+3. heigth
+
+## Complex example
 
 ```php
 <?php
@@ -299,14 +467,14 @@ class myWindowFactory {
        $line1 = $this->uiFactory->createLayoutRow(0, 0, [$checkbox, $checkbox2], 0);   // sum the two ui components to a line
 
        $ok = $this->uiFactory->createButton("Apply", uiButton::TYPE_DECORATED);
-       $ok->setAction($this->actionFactory->createManialinkAction($manialink, [$this, 'ok'], ["ok" => "ok"]));
+       $ok->setAction($this->actionFactory->createManialinkAction($manialink, [$this, 'callbackButton'], ["type" => "ok"]));
 
        $cancel = $this->uiFactory->createButton("Cancel");
-       $cancel->setAction($this->actionFactory->createManialinkAction($manialink, [$this, 'ok'], ["ok" => "cancel"]));
+       $cancel->setAction($this->actionFactory->createManialinkAction($manialink, [$this, 'callbackButton'], ["type" => "cancel"]));
        $line2 = $this->uiFactory->createLayoutLine(0, 0, [$ok, $cancel], 1); // sum the two ui components to second line 
        
-
        $row = $this->uiFactory->createLayoutRow(0, -10, [$line1, $line2], 0);  // make two rows of the lines
+       
        $manialink->addChild($row);     
         
     }
