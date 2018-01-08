@@ -21,3 +21,7 @@ body {
 .smallpadding {
     padding: 0 1em;
 }
+
+a.link {
+    text-decoration: none !important;
+}

@@ -1,7 +1,7 @@
 Composer installation is really simple and can be done with a single command:
 
 ```bash
-curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+$ curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 ```
 
 This will download and install Composer as a system-wide command named composer, under /usr/local/bin. 
@@ -18,11 +18,11 @@ Use it: php /usr/local/bin/composer
 
 Now test your installation by running: 
 ```bash
-composer
+$ composer
 ```
 
 Which should output : 
-```bash
+```
    ______
   / ____/___  ____ ___  ____  ____  ________  _____
  / /   / __ \/ __ `__ \/ __ \/ __ \/ ___/ _ \/ ___/

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include header.html %}
+</head>
+<body>
+{% include main_menu.html %}
+
+
+<main id="content" role="main" class="uk-margin-no-top">
+
+        <div class="uk-container uk-container-expand">
+            <div class="uk-grid" uk-grid>
+                <div class="uk-width-1-5@s uk-background-primary uk-light smallpadding">
+                    {% include docs_user_menu.html %}
+                </div>
+
+                <div class="uk-width-expand@s uk-background-default uk-padding doc-content" id="documentation">
+                    {{ content }}
+                </div>
+
+                <div class="uk-width-1-6@l uk-width-1-5@m uk-visible@l">
+                    <div uk-sticky="offset: 100; width-element: #doc_nav_container; bottom: true">
+                        <div id="doc_nav">
+
+                        </div>
+
+                        <hr/>
+
+                        <ul class="uk-nav uk-nav-default">
+                            <li>
+                                <a href='https://github.com/eXpansionPluginPack/eXpansionPluginPack.github.io/tree/master/{{ page.path }}'
+                                   target="_blank">
+                                    <span uk-icon="icon: pencil" class="uk-margin-small-right uk-icon"></span>
+                                    Edit this page
+                                </a>
+                            </li>
+                            <li>
+                                <a href='https://github.com/eXpansionPluginPack/eXpansionPluginPack.github.io/issues/new?title=Page : {{ page.path }}'
+                                   target="_blank">
+                                    <span uk-icon="icon: warning" class="uk-margin-small-right uk-icon"></span>
+                                    Report issue
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+</main>
+
+{% include footer.html %}
+</body>
+</html>

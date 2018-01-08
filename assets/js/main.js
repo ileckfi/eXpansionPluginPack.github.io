@@ -1,7 +1,7 @@
 $( document ).ready(function() {
 
-    $('.doc-content table').addClass('uk-table uk-table-divider');
-    $('.doc-content blockquote').addClass('uk-alert-primary');
+    $('table').addClass('uk-table uk-table-divider');
+    $('blockquote').addClass('uk-alert-primary');
 
     tocbot.init({
         tocSelector: '#doc_nav',

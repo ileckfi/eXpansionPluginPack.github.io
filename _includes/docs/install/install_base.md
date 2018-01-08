@@ -2,7 +2,7 @@ eXpansion uses composer to handle all dependencies. Installing/Updating eXpansio
 
 First let's check that our composer is well up to date. 
 ```bash
-composer self-update
+$ sudo composer self-update
 ```
 
 This should display something like 
@@ -14,7 +14,7 @@ Use composer self-update --rollback to return to version 1.4.2
 
 Now we can install/update eXpansion, todo so just use the update command
 ```bash
-composer update
+$ composer update
 ```
 
 This might take sometime.
