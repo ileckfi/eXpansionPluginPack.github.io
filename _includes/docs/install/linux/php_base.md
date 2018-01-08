@@ -11,3 +11,15 @@ memory_limit = 1gb
 ```
 
 If you intend to run 200+ players on the server go for `2gb` to handle peak usages.
+
+Let's check now that our php is well instlalled 
+
+```bash
+php -v
+```
+
+Should output something like
+
+```bash
+PHP 7.0.20 ...
+```

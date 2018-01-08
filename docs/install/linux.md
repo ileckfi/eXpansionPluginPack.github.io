@@ -14,6 +14,14 @@ layout: docs
 
 {% include docs/install/linux/php_base.md %}
 
+### Install Composer
+
+{% include docs/install/linux/composer.md %}
+
+## Install / Update eXpansion
+
+{% include docs/install/install_base.md %}
+
 ## Configure eXpansion
 
 {% include docs/install/config_base.md %}
@@ -35,6 +43,14 @@ For more information check : [Configure eXpansion](./configuration.md)
 ### Install & Configure PHP
 
 {% include docs/install/linux/php_base.md %}
+
+### Install Composer
+
+{% include docs/install/linux/composer.md %}
+
+## Install / Update eXpansion
+
+{% include docs/install/install_base.md %}
 
 ## Configure eXpansion
 
@@ -66,6 +82,14 @@ sudo apt update
 ```
 
 {% include docs/install/linux/php_base.md %}
+
+### Install Composer
+
+{% include docs/install/linux/composer.md %}
+
+## Install / Update eXpansion
+
+{% include docs/install/install_base.md %}
 
 ## Configure eXpansion
 

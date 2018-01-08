@@ -23,7 +23,7 @@ parameters:
     dedicated_connection_type: local
 ```
 
-## Database configurations
+### Database configurations
 
 | Parameter             | Description |
 | --------------------- | ----------- |
@@ -41,7 +41,7 @@ parameters:
 | | |
 | **database_password** | Password to connect to thed database. |
 
-## Dedicated server configurations
+### Dedicated server configurations
 
 | Parameter                 | Description |
 | ---------------------     | ----------- |
