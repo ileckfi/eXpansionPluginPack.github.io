@@ -11,8 +11,10 @@ By default following groups are set:
 
 Admins are defined at ```/app/config/expansion.yml``` file.
 
-> Most editors uses tabs to intend file-contents, this will make the YAML-files not working. Please check that you 
+Most editors uses tabs to intend file-contents, this will make the YAML-files not working. Please check that you 
 use spaces instead of tabs for intents.  
+
+> /app/config/expansion.yml
 
 ```yaml
 e_xpansion_admin_groups:

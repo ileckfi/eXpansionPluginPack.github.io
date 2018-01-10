@@ -11,6 +11,8 @@ bundle you wish to disable, to enable just remove the comment at beginning of th
 
 Example, with Immersive windows-bundle disabled.
 
+> /app/AppKernel.php
+
 ```php
 <?php
   public function registerBundles()

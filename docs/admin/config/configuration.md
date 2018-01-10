@@ -18,6 +18,9 @@ eXpansion uses [flysystem](https://github.com/thephpleague/flysystem) library to
 ftp/sftp or even other methods. 
 
 Let's first have a look at the default config : 
+
+> /app/config/parameters.yml
+
 ```yaml
 oneup_flysystem:
     adapters:
@@ -38,6 +41,8 @@ This will limit some functionality.
 In case of docker you will need to make the user directory available locally to eXpansion. 
 Then configure the adapter as fallows
 
+> /app/config/parameters.yml
+
 ```yaml
 oneup_flysystem:
     adapters:
@@ -52,6 +57,8 @@ oneup_flysystem:
 Here was say to eXpansion that the UserData is available locally in at the path `/var/maniaplanet/UserData/`
 
 #### FTP Exemple 
+
+> /app/config/parameters.yml
 
 ```yaml
 oneup_flysystem:
@@ -75,6 +82,8 @@ oneup_flysystem:
 
 #### SFTP Exemple 
 
+> /app/config/parameters.yml
+
 ```yaml
 oneup_flysystem:
     adapters:
@@ -95,4 +104,4 @@ oneup_flysystem:
             adapter: dedicated_user_data
 ```
 
-See the OneupFlystemBundle documentation for more user cases : https://github.com/1up-lab/OneupFlysystemBundle/blob/master/Resources/doc/index.md
+See the [OnupFlysystem Documentation](https://github.com/1up-lab/OneupFlysystemBundle/blob/master/Resources/doc/index.md) for more use cases! 

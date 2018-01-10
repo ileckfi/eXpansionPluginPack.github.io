@@ -2,16 +2,18 @@
 layout: admin
 ---
 
-## Install using docker. 
+## Install using docker
 
-You should first install docker
+Install docker [www.docker.com](www.docker.com)
+
+> Docker works on linux or on Windows 10 pro, it don't work on a windows home.
 
 The easiest way to install eXpansion using docker is to use a docker-compose file. 
 
 For this installation we are going to use 3 images : 
-* **[Mysql](https://hub.docker.com/_/mysql/)**
-* **[MP Dedicated Server](https://hub.docker.com/r/oliverde8/mp-dedicated/)**
-* **[eXpansion](https://hub.docker.com/r/oliverde8/mp-expansion/)**
+1. **[Mysql](https://hub.docker.com/_/mysql/)**
+2. **[MP Dedicated Server](https://hub.docker.com/r/oliverde8/mp-dedicated/)**
+3. **[eXpansion](https://hub.docker.com/r/oliverde8/mp-expansion/)**
 
 ### Preparing the docker file
 

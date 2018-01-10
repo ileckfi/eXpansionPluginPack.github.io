@@ -6,6 +6,9 @@ Configuration can be found in `app/config` directory. Configuration that interes
 If you have not done so already rename the `parameters.yml.dist` to `parameters.yml`.
 
 The fallowing part of the file interests us : 
+
+> /app/config/parameters.yml
+
 ```yaml
 parameters:
     database_driver: mysql
