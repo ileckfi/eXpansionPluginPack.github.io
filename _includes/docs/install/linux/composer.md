@@ -7,7 +7,7 @@ $ curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/lo
 This will download and install Composer as a system-wide command named composer, under /usr/local/bin. 
 The output should look like this:
 
-```
+```bash
 #!/usr/bin/env php
 All settings correct for using Composer
 Downloading...

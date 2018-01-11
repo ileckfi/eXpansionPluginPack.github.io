@@ -28,8 +28,9 @@ examples:<br>
 | comment | 1 - comment | sets new comment |
 | password | 1 - pass | set or unset password |
 | specpass | 1 - password | set or unset spectator password |
-| planets | 0 | show ingame planets |
-
+| planets | 0 | show in game planets |
+| server | 0 | opens server settings dialog |
+| script | 0 | opens script settings dialog |
   
 ## Players related
 

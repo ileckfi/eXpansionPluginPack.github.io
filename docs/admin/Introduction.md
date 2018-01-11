@@ -20,7 +20,7 @@ eXpansion should run on any sql database; but is tested on mysql primarily.
 
 ### PHP Extension
 
-Expansion Requires the fallowing php extensions : 
+Expansion Requires the following php extensions : 
 
 * **libxml**
 * **xmlrpc**

@@ -1,11 +1,11 @@
-eXpansion2 is a symfony application before anything else, there are therefore a-lot of symfony related configurations. 
+eXpansion2 is a symfony application before anything else, there are therefore a lot of symfony related configurations. 
 We will ignore all this configuration and only bother about what is necessary by eXpansion.
 
 Configuration can be found in `app/config` directory. Configuration that interests us is in the `parameters.yml` file.
 
 If you have not done so already rename the `parameters.yml.dist` to `parameters.yml`.
 
-The fallowing part of the file interests us : 
+The following part of the file interests us : 
 
 > /app/config/parameters.yml
 
@@ -49,10 +49,10 @@ parameters:
 | Parameter                 | Description |
 | ---------------------     | ----------- |
 | **dedicated_host**        | Host or ip to connect to the dedicated. |
-|                           | If you are using wamp/xamp it's probably `localhost or `127.0.0.1` |
+|                           | If you are using wamp/xampp it's probably `localhost or `127.0.0.1` |
 | **dedicated_port**        | the xmlrpc port configured in the dedicated config file |
 | | | 
-| **dedicated_timeout**     | Max timeout time, shouldn't be changed |
+| **dedicated_timeout**     | Max timeout time, should not be changed |
 | | | 
 | **dedicated_password**    | Unless specific use case it's needs to be SuperAdmin |
 | | | 

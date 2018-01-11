@@ -91,7 +91,7 @@ public function __construct(MyWidgetFactory $myWidgetFactory) {
 }
 ```
 
-Once this is done we can very simply use the fallowing methods : 
+Once this is done we can very simply use the following methods : 
 
 ```php
 <?php

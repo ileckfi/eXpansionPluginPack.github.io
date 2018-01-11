@@ -11,7 +11,7 @@ There are a few ways to install eXpansion.
 
 **You may also instal eXpansion with docker**
 
-* [Install with docker](./install/docker.md)
+* [Install with docker](./install/docker.html)
 
 **And finally if you wish to develop for eXpansion**
 

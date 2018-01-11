@@ -44,7 +44,7 @@ Mandatory Directories marked **bold**.
 | **DependencyInjection** | Dependencies and Config loading |PluginName postfixed with `Extension`|
 | **Plugins** | Plugin Classes |Free to name your classes |
 | Plugins/Gui | User Interface classes |Free to name your classes |
-| **Resources/config** | Configs | snake cased name of directory |
+| **Resources/config** | Configs | snake cased names |
 | **Resources/translations** | Localization messages | Always named: messages.**lang_code**.yml |
 | Services | Additional services |Free to name your classes |
 
