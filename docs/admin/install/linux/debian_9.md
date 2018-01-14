@@ -26,7 +26,7 @@ layout: admin
 
 {% include docs/install/config_base.md %}
 
-For more information check : [Configure eXpansion](./configuration.md)
+For more information check : [Configure eXpansion](../../config/configuration.html)
 
 ## Startup eXpansion 
 
