@@ -8,7 +8,7 @@ Grids are elements allowing you to quickly display a table with pagination & sea
 
 To create a grid you will need either a Window or a Widget factory but also a DataCollection. 
 
-**Data Collections** are classes containing all the necessery methods for grids to get sorted & filtered data.
+**Data Collections** are classes containing all the necessary methods for grids to get sorted & filtered data.
 
 ### Data Collections, 
 
@@ -61,18 +61,19 @@ TODO: Describe how to create a custom data collection.
 
 ### Using the Grid Builder
 
-* **Autowire : TRUE** This service can be autowired into your services. 
-* **Class :** eXpansion\Framework\Core\Model\Gui\Grid\GridBuilderFactory
+* **Autowire: TRUE** This service can be auto wired into your services. 
+* **Class:** eXpansion\Framework\Core\Model\Gui\Grid\GridBuilderFactory
 
 To create a grid you need the grid builder factory service. This service can be **autowired** into your window builder.
 
 With this you can generate in instance of grid builder that you will be able to use to create you grid.
 
 ```php
+<?php
 $gridBuilder = $this->gridBuilderFactory->create();
 ```
 
-You need after that set a few more informations : 
+You need after that set a few more information: 
 
 ```php
 <?php
@@ -116,7 +117,7 @@ $gridBuilder->setManialink($manialink)
 Parameters:
 1. the key in the associative array, or in case of a object collection the name of the getter method to call.
 2. the translation id of the title of the column.
-3. the width coefficiency. Using this & total width the builder will arrange the width of each column. 
+3. the width coefficient. Using this & total width the builder will arrange the width of each column. 
 
 ```php
 <?php 
@@ -270,7 +271,7 @@ $gridBuilder->addInputColumn('wish', 'expansion_maps.gui.window.column.wish', 1,
 
 1) Action columns need a unique key
 2) Text for column name
-3) a width coefficiency
+3) a width coefficient
 4) The action callback
 5) The custom FML element to use (or null if wish to use a text)
 
@@ -291,7 +292,7 @@ $gridBuilder->addActionColumn('wish', 'expansion_maps.gui.window.column.wish', 1
 
 ```
 
-#### Configuring searcheble fields
+#### Configuring searchable fields
 
 TODO This has not been yet coded.
 

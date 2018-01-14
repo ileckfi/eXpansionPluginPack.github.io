@@ -10,7 +10,7 @@ layout: admin
 
 ### Install & Configure PHP
 
-Debian jessie comes with PHP 5.6 which as "expired" you will therefore need to install a newer version. 
+Debian jessie comes with PHP 5.6 which is "expired" you will therefore need to install a newer version. 
 
 The easiest way to install PHP 7.0 is to use [Ondrej Sury](https://deb.sury.org/) packages.
 

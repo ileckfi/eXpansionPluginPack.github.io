@@ -29,4 +29,4 @@ $this->getScores->get(function(array $scores) {
 });
 ```
 
-This will return either the Trackmania scores or the shootmania scores depending on the game mode.
+This will return either the Trackmania scores or the Shootmania scores depending on the game mode.

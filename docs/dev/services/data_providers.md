@@ -23,13 +23,14 @@ The diagram shows how event data flows from dedicated to plugin.
 3. Multiple DataProviders are set to work in certain conditions.
     - at begin of a map eXpansion<sup>2</sup> checks which data provider is most best suited for the current 
     situation and starts those. 
-4. The Selected DataProvider sends it's abstracted event to Records plugin
-5. Records plugin doesen't need to tale into consideration changes coming from various scripts
+4. The Selected DataProvider sends it's abstracted events to Records plugin
+5. Records plugin doesn't need to take into consideration changes coming from various scripts
 6. Records plugin can work as a new data provider which seeds data to other plugins who requested the data.
-6. Next plugins process the records plugin data, and show different things...
+7. Next plugins process the records plugin data, and show different things...
     1. a chat message plugin, which shows the new record at game chat.
     2. records widget, which draws hud element to the screen
-    3. best scores widget... etc...
+    3. best scores widget
+    4. etc...
     
 ## Data Providers
   
@@ -77,14 +78,14 @@ by implementing `TimeDataProvider` for Storm or other custom game mode.
 Once this is created the `LocalRecordsPlugin` will be enabled as a compatible `TimeDataProvider` is found. 
 So the `LocalRecordsDataProvider` will enable as well, which in it's turn will enable `LocalRecrodsWidget`. 
 
-So the devleoppment of a simple DataProvider will reconect and render compatible whole features that was never meant to
+So the development of a simple DataProvider will reconnect and render compatible whole features that was never meant to
 work on Storm.
 
 Data providers can also be used to send game mode dependent "configuration" data to plugins. For example widget positions. 
 
 ## Registering a Data Provider
 
-A data provider is basicly a service, like nearly everything else in eXpansion<sup>2</sup>. 
+A data provider is basically a service, like nearly everything else in eXpansion<sup>2</sup>. 
  
 Very basic data provider compatible with everything: 
 
@@ -110,7 +111,7 @@ The second tag allows to add compatibility information.
 
 In this case we have basically said our provider is compatible with all titles, and as we have not given any specification for mode & scrip it's compatible with all of them as well. 
 
-To make it compatible for Trackmania - both Rounds & Laps script mode we would have written something like this.
+To make it compatible in Trackmania for both Rounds & Laps script mode we could write something like this:
 
 ```yaml
 services:
@@ -122,7 +123,7 @@ services:
             - {name: expansion.dataprovider.compatibility, title: TM, mode: 0, script: Laps.Script.txt }
 ```
 
-Providers are useless, if they don't listen to events. We use another tag for that.
+Providers are useless, if they don't listen to events, so here we use another tag for that:
 
 ```yaml
 services:
@@ -151,7 +152,7 @@ services:
             - {name: expansion.dataprovider.listener, event_name: PlayerDisconnect, method: onPlayerDisconnect}
 ```
 
-Finally we can make a listener depend upon a parent plugin. 
+We can make a listener depend upon a parent plugin:
 
 ```yaml
 services:
@@ -171,17 +172,36 @@ services:
 As said, data provider might depend upon a another plugin. When this happens it means that the plugin is dispatching 
 events that needs to be normalized.
 
-To dispatch events you need the eXpansion dispatcher 
-service `eXpansion\Framework\Core\Services\Application\DispatcherInterface` that can be autowired.
+To dispatch events you need the eXpansion dispatcher service 
+`eXpansion\Framework\Core\Services\Application\DispatcherInterface`
 
-Then use the dispatcher function: 
+And using the dispatcher: 
 
 ```php
 <?php
-$dispatcher->dispatch('my_name.acme.super_event', [$var1, $var2]);
+
+use eXpansion\Framework\Core\Services\Application\DispatcherInterface;
+
+class MyClass {
+
+    /** @var DispatcherInterface */
+    private $dispatcher;
+    
+    public function __construct(DispatcherInterface $dispatcher) {
+        $this->dispatcher = $dispatcher;
+    }
+
+    public function onSomeMethod() {
+        // do your code here, and when needed, just call dispatcher as...
+        $var1 = "foo";
+        $var2 = "bar";
+        
+        $this->dispatcher->dispatch('my_name.acme.super_event', [$var1, $var2]);
+        
+    }
+}
 ?>
 ```
-
 
 ## Available Data Providers
 
@@ -200,7 +220,7 @@ that you will probably won't need. You can always contact us if you wish to know
 ### Maniaplanet Legacy Callbacks
 
 | Dataprovider              | Interface Class  | Dedicated Callback | Callbacks Methods |
-| ---- | --- |--- |--- |
+| --- | --- |--- |--- |
 | mp.legacy.chat            | ListenerInterfaceMpLegacyChat | *.PlayerChat | onPlayerChat |
 | mp.legacy.player          | ListenerInterfaceMpLegacyPlayer | *.PlayerConnect<br> *.PlayerDisconnect<br> *.PlayerInfoChanged<br> *.PlayerAlliesChanged | onPlayerConnect<br> onPlayerDisconnect<br> onPlayerInfoChanged<br> onPlayerAlliesChanged |
 | mp.legacy.maplist         | ListenerInterfaceMpLegacyMaplist | *.MapListModified | onMapListModified |
@@ -211,7 +231,7 @@ that you will probably won't need. You can always contact us if you wish to know
  ### Maniaplanet Script Callbacks
  
  | Dataprovider              | Interface Class  | Dedicated Callback | Callbacks Methods |
- | ---- | --- |--- |--- |
+ | --- | --- |--- |--- |
  |mp.script.map             |ListenerInterfaceMpScriptMap | Maniaplanet.StartMap_Start<br>Maniaplanet.StartMap_End<br> Maniaplanet.EndMap_Start<br> Maniaplanet.EndMap_End |onStartMapStart<br> onStartMapEnd<br> onEndMapStart<br> onEndMapEnd |
  |mp.script.match           |ListenerInterfaceMpScriptMatch |  Maniaplanet.StartMatch_Start<br> Maniaplanet.StartMatch_End<br> EndMatch_Start<br> EndMatch_End<br> StartTurn_Start<br> StartTurn_End<br>EndTurn_Start<br>EndTurn_End<br>StartRound_Start<br>StartRound_End<br> EndRound_Start<br>EndRound_End| onStartMatchStart<br> onStartMatchEnd.... etc...|
  |mp.script.podium          |ListenerInterfaceMPScriptPodium| Maniaplanet.Podium_Start<br>Maniaplanet.Podium_End | onPodiumStart<br>onPodiumEnd |
@@ -220,11 +240,13 @@ that you will probably won't need. You can always contact us if you wish to know
 ### TM Data Providers
 
  | Dataprovider              | Interface Class  | Dedicated Callback | Callbacks Methods |
- | ---- | --- |--- |--- |
- |tm.script.race            |ListenerInterfaceTmScriptRace | Trackmania.OnWayPoint |onStartMapStart<br> onStartMapEnd<br> onEndMapStart<br> onEndMapEnd |
- |tm.script.match           |ListenerInterfaceMpScriptMatch |  Maniaplanet.StartMatch_Start<br> Maniaplanet.StartMatch_End<br> EndMatch_Start<br> EndMatch_End<br> StartTurn_Start<br> StartTurn_End<br>EndTurn_Start<br>EndTurn_End<br>StartRound_Start<br>StartRound_End<br> EndRound_Start<br>EndRound_End| onStartMatchStart<br> onStartMatchEnd.... etc...|
- |tp.script.podium          |ListenerInterfaceMpScriptPodium| Maniaplanet.Podium_Start<br>Maniaplanet.Podium_End | onPlayerWayPoint<br>onPlayerEndRace<br>onPlayerEndLap |
-
+ | --- | --- |--- |--- |
+ |tm.script.waypoint       |ListenerInterfaceWaypointData | Trackmania.OnWayPoint | onPlayerWayPoint
+ |tm.script.race           |ListenerInterfaceRaceData | Trackmania.OnWayPoint | onPlayerEndRace
+ |tm.script.lap            |ListenerInterfaceLapData | Trackmania.OnWayPoint | onPlayerEndLap
+ |tm.script.match          |ListenerInterfaceMpScriptMatch |  Maniaplanet.StartMatch_Start<br> Maniaplanet.StartMatch_End<br> EndMatch_Start<br> EndMatch_End<br> StartTurn_Start<br> StartTurn_End<br>EndTurn_Start<br>EndTurn_End<br>StartRound_Start<br>StartRound_End<br> EndRound_Start<br>EndRound_End| onStartMatchStart<br> onStartMatchEnd.... etc...|
+ |mp.script.podium         |ListenerInterfaceMpScriptPodium| Maniaplanet.Podium_Start<br>Maniaplanet.Podium_End | onPlayerWayPoint<br>onPlayerEndRace<br>onPlayerEndLap |
+ |tm.script.player         |ListenerInterfacePlayerEvents| Trackmania.Event.StartLine<br>Trackmania.Event.GiveUp<br>Trackmania.Event.Respawn |OnStartLine<br> onGiveUp<br>onRespawn|
 
 ### SM Data Providers
 

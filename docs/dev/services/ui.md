@@ -22,16 +22,22 @@ Creating user interfaces in eXpansion<sup>2</sup>.
 
 Core GUI Factories provides you currently 2 types of UI builders to extend with.
 
-1. WindowFactory
-2. WidgetFactory
+1. WindowFactory<br>
+   Is movable, framed and with closing possibility. 
 
-`Widget` are rendered to be a static and borderless, without any extra elements while
-`Window` will be movable, framed and with closing possibility. Those behaviours can be extended by other bundles. 
-But the core works this way.
+2. WidgetFactory<br>
+   Is rendered to be a static, with no frame and without any extra elements.
+
+These behaviours can be extended by other bundles.
+
+
+![example window with simple label]({{ "/assets/img/doc/windows/window_empty.jpg" | absolute_url }})
+Example of a simple window with a label
 
 But on both classes we will only need to implement the 2 abstract methods. 
 
 ```php
+<?php
 protected function createContent(Manialink $manialink) { }
 
 protected function updateContent(Manialink $manialink) { }

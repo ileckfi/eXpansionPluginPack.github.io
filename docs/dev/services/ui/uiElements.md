@@ -233,62 +233,6 @@ class myWindowFactory {
 ?>
 ```
 
-### uiBackground
-
-Draws a background behind a label or another element. 
-You can draw 2 types of background one for titles & one for normal content. 
-
-```php
-<?php
-namespace mybundle\example\plugins\example;
-
-class myWindowFactory {
-    
-    protected function createContent(ManialinkInterface $manialink)
-    {          
-        $bg = $this->uiFactory->createBackground(20, 5, 0/* Index of the line */);
-        $manialink->addChild($bg);
-        
-        $bg = $this->uiFactory->createBackground(20, 5, 1/* Index of the line */);
-        $manialink->addChild($bg);
-        
-        $bg = $this->uiFactory->createTitleBackground(20, 5, 1/* Index of the line */);
-        $manialink->addChild($bg);                        
-    }   
-}
-?>
-```
-
-### uiGridLine
-
-A grid line is basically a line with labels & a background behind it. 
-GridLines have fixed width and will re-dimension elements of a line in order to fit them.
-
-```php
-<?php
-namespace mybundle\example\plugins\example;
-
-class myWindowFactory {
-    
-    protected function createContent(ManialinkInterface $manialink)
-    {          
-        $gline = $this->uiFactory->createGridLine(
-            100, /* Width */
-            [
-                'width' => 10, /* Width coefficiency */
-                'text' => 'Hello', /* Text to display */ 
-                'renderer' => new Quad_Icons64x64_1(), /* Or display a FML element */
-                'action' => $this->actionFactory->create(), /* Optional : Action to execute on click */
-                'translatable' => true /* If text, should it be translated */
-            ] /* Width */
-        );
-        $manialink->addChild($gline);                  
-    }   
-}
-?>
-```
-
-
 ## UI Helpers
 
 ### uiAnimation

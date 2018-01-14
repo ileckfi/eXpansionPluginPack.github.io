@@ -13,8 +13,8 @@ player that has no privileges will be put in the guest group.
 
 ### Admin Groups Helper
 
-* **Autowire : TRUE** This service can be autowired into your services. 
-* **Class :** eXpansion\Framework\AdminGroups\Helpers\AdminGroups
+* **Autowire: TRUE** This service can be autowired into your services. 
+* **Class:** eXpansion\Framework\AdminGroups\Helpers\AdminGroups
 
 Allows to check if a player has certain permissions, to which admin group a player belongs, 
 and get player groups in order to display widgets for each admin group.
