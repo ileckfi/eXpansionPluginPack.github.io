@@ -1,5 +1,5 @@
 ---
-layout: admin
+layout: dev
 ---
 
 # Installing for development using docker
