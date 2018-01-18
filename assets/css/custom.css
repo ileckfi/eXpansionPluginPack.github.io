@@ -25,3 +25,7 @@ body {
 a.link {
     text-decoration: none !important;
 }
+
+::-webkit-scrollbar {
+display: none;
+}
