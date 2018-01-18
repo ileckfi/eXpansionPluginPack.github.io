@@ -29,3 +29,13 @@ a.link {
 ::-webkit-scrollbar {
 display: none;
 }
+
+.downloadbutton{
+	padding: 0;
+	padding-right: 20px;
+}
+
+.downloadicon {
+	padding-left: 20px;
+	padding-right: 10px;
+}
